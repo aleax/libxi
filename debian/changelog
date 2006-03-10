@@ -1,3 +1,9 @@
+libxi (1:1.0.0-2) experimental; urgency=low
+
+  * Backport manpage location fix
+
+ -- David Nusinow <dnusinow@debian.org>  Thu,  9 Mar 2006 23:22:36 -0500
+
 libxi (1:1.0.0-1) experimental; urgency=low
 
   * First modular upload to Debian
