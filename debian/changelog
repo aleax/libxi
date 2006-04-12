@@ -1,3 +1,10 @@
+libxi (1:1.0.0-4) unstable; urgency=low
+
+  * Remove references to xss in -dev and -dbg package descriptions. Thanks
+    Josh Triplett. (closes: #362059)
+
+ -- David Nusinow <dnusinow@debian.org>  Tue, 11 Apr 2006 20:26:26 -0400
+
 libxi (1:1.0.0-3) unstable; urgency=low
 
   * Upload to unstable

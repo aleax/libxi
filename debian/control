@@ -35,7 +35,7 @@ Description: X11 Input extension library (debug package)
  and will soon allow hotplugging of input devices; to be added and removed on
  the fly.
  .
- This package contains the debug versions of the library found in libxss1.
+ This package contains the debug versions of the library found in libxi6.
  Non-developers likely have little use for this package.
  .
  More information about X.Org can be found at:
@@ -58,7 +58,7 @@ Description: X11 Input extension library (development headers)
  the fly.
  .
  This package contains the development headers for the library found in
- libxss1.  Non-developers likely have little use for this package.
+ libxi6.  Non-developers likely have little use for this package.
  .
  More information about X.Org can be found at:
  <URL:http://xorg.freedesktop.org>
