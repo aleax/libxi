@@ -1,3 +1,10 @@
+libxi (1:1.0.0-5) unstable; urgency=low
+
+  * Reorder makeshlib command in rules file so that ldconfig is run
+    properly. Thanks Drew Parsons and Steve Langasek.
+
+ -- David Nusinow <dnusinow@debian.org>  Tue, 18 Apr 2006 21:49:59 -0400
+
 libxi (1:1.0.0-4) unstable; urgency=low
 
   * Remove references to xss in -dev and -dbg package descriptions. Thanks
