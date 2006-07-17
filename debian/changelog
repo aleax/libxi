@@ -1,9 +1,10 @@
 libxi (1:1.0.0-6) UNRELEASED; urgency=low
 
   * Test for obj-$(DEB_BUILD_GNU_TYPE) before creating it during build;
-    idempotency fix. 
+    idempotency fix.
+  * Run dh_install w/ --list-missing. 
 
- -- Andres Salomon <dilinger@debian.org>  Mon, 17 Jul 2006 00:19:16 -0400
+ -- Andres Salomon <dilinger@debian.org>  Mon, 17 Jul 2006 01:21:03 -0400
 
 libxi (1:1.0.0-5) unstable; urgency=low
 
