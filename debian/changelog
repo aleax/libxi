@@ -2,7 +2,7 @@ libxi (1:1.0.0-6) UNRELEASED; urgency=low
 
   * Test for obj-$(DEB_BUILD_GNU_TYPE) before creating it during build;
     idempotency fix.
-  * Run dh_install w/ --list-missing. 
+  * Run dh_install w/ --list-missing.
   * Drop duplicate x11-common dep in -dev package.
   * Bump standards version to 3.7.2.0.
   * Version x11-common pre-dep in -dev package to 1:7.0.0 to match
