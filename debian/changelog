@@ -1,3 +1,12 @@
+libxi (1:1.0.1-1) experimental; urgency=low
+
+  * New upstream version (X11R7.1).
+    - applies patch 01_manpage_location.diff.
+  * libxi provides no header files, so don't try to install usr/include/X11/*
+  * Exclude .la from dh_install.
+
+ -- Drew Parsons <dparsons@debian.org>  Thu, 10 Aug 2006 03:00:53 +1000
+
 libxi (1:1.0.0-6) UNRELEASED; urgency=low
 
   * Test for obj-$(DEB_BUILD_GNU_TYPE) before creating it during build;
