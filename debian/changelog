@@ -1,3 +1,12 @@
+libxi (1:1.0.1-2) experimental; urgency=low
+
+  * Patch 10_manpage_section.diff sets the man page section according
+    to the definition given by xutils macros.  Set Build-Depends:
+    xutils-dev to prove the point.  Install man pages using
+    dh_installman.  Closes: #377204.
+
+ -- Drew Parsons <dparsons@debian.org>  Fri, 11 Aug 2006 15:03:27 +1000
+
 libxi (1:1.0.1-1) experimental; urgency=low
 
   * New upstream version (X11R7.1).

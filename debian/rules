@@ -72,7 +72,8 @@ binary-arch: build install
 	dh_testroot
 
 	dh_installdocs
-	dh_install --sourcedir=debian/tmp --list-missing --exclude=libXi.la
+	dh_install --sourcedir=debian/tmp --list-missing --exclude=libXi.la --exclude=usr/share/man/man3
+	dh_installman
 	dh_installchangelogs
 	dh_link
 	dh_strip --dbg-package=$(PACKAGE)-dbg
