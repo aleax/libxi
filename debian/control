@@ -26,6 +26,7 @@ Description: X11 Input extension library
 
 Package: libxi6-dbg
 Architecture: any
+Priority: extra
 Depends: ${shlibs:Depends}, ${misc:Depends}, x11-common, libxi6 (= ${Source-Version})
 Description: X11 Input extension library (debug package)
  libXi provides an X Window System client interface to the XINPUT
