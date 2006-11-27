@@ -1,0 +1,418 @@
+From: Jamey Sharp <jamey@minilop.net>
+Date: Sun, 15 Oct 2006 07:26:21 +0000 (-0700)
+Subject: Don't call XInput_find_display in _XiCheckExtInit, while the Display lock is held.
+X-Git-Url: http://gitweb.freedesktop.org/?p=xorg/lib/libXi.git;a=commitdiff;h=c27e00ceceed3fea011c98c0e70ab568bf0687c6
+
+Don't call XInput_find_display in _XiCheckExtInit, while the Display lock is held.
+
+All callers of _XiCheckExtInit have already called XInput_find_display
+first outside the lock, so just pass their copy of the XExtDisplayInfo
+structure down. Besides being more correct, this should be slightly
+faster. :-)
+
+Thanks to Magnus Kessler <Magnus.Kessler@gmx.net> for identifying
+the bug and proposing a workaround.
+---
+
+--- a/src/XAllowDv.c
++++ b/src/XAllowDv.c
+@@ -71,7 +71,7 @@ XAllowDeviceEvents(dpy, dev, event_mode,
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+ 
+     GetReq(AllowDeviceEvents, req);
+--- a/src/XChgDCtl.c
++++ b/src/XChgDCtl.c
+@@ -74,7 +74,7 @@ XChangeDeviceControl(dpy, dev, control, 
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Add_XChangeDeviceControl) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Add_XChangeDeviceControl, info) == -1)
+ 	return (NoSuchExtension);
+ 
+     GetReq(ChangeDeviceControl, req);
+--- a/src/XChgFCtl.c
++++ b/src/XChgFCtl.c
+@@ -73,7 +73,7 @@ XChangeFeedbackControl(dpy, dev, mask, f
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+ 
+     GetReq(ChangeFeedbackControl, req);
+--- a/src/XChgKMap.c
++++ b/src/XChgKMap.c
+@@ -74,7 +74,7 @@ XChangeDeviceKeyMapping(dpy, dev, first,
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+ 
+     GetReq(ChangeDeviceKeyMapping, req);
+--- a/src/XChgKbd.c
++++ b/src/XChgKbd.c
+@@ -70,7 +70,7 @@ XChangeKeyboardDevice(dpy, dev)
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+ 
+     GetReq(ChangeKeyboardDevice, req);
+--- a/src/XChgPnt.c
++++ b/src/XChgPnt.c
+@@ -72,7 +72,7 @@ XChangePointerDevice(dpy, dev, xaxis, ya
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+ 
+     GetReq(ChangePointerDevice, req);
+--- a/src/XChgProp.c
++++ b/src/XChgProp.c
+@@ -73,7 +73,7 @@ XChangeDeviceDontPropagateList(dpy, wind
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+ 
+     GetReq(ChangeDeviceDontPropagateList, req);
+--- a/src/XCloseDev.c
++++ b/src/XCloseDev.c
+@@ -69,7 +69,7 @@ XCloseDevice(dpy, dev)
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+ 
+     GetReq(CloseDevice, req);
+--- a/src/XDevBell.c
++++ b/src/XDevBell.c
+@@ -71,7 +71,7 @@ XDeviceBell(dpy, dev, feedbackclass, fee
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Add_XDeviceBell) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Add_XDeviceBell, info) == -1)
+ 	return (NoSuchExtension);
+ 
+     GetReq(DeviceBell, req);
+--- a/src/XExtInt.c
++++ b/src/XExtInt.c
+@@ -191,12 +191,12 @@ _xidevicebusy(dpy, error)
+  */
+ 
+ int
+-_XiCheckExtInit(dpy, version_index)
++_XiCheckExtInit(dpy, version_index, info)
+     register Display *dpy;
+     register int version_index;
++    XExtDisplayInfo *info;
+ {
+     XExtensionVersion *ext;
+-    XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     XInputCheckExtension(dpy, info, -1);
+ 
+--- a/src/XGMotion.c
++++ b/src/XGMotion.c
+@@ -85,7 +85,7 @@ Time stop;
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return ((XDeviceTimeCoord *) NoSuchExtension);
+ 
+     GetReq(GetDeviceMotionEvents, req);
+--- a/src/XGetBMap.c
++++ b/src/XGetBMap.c
+@@ -81,7 +81,7 @@ XGetDeviceButtonMapping(dpy, device, map
+     xGetDeviceButtonMappingReply rep;
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+     GetReq(GetDeviceButtonMapping, req);
+ 
+--- a/src/XGetDCtl.c
++++ b/src/XGetDCtl.c
+@@ -78,7 +78,7 @@ XGetDeviceControl(dpy, dev, control)
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Add_XChangeDeviceControl) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Add_XChangeDeviceControl, info) == -1)
+ 	return ((XDeviceControl *) NoSuchExtension);
+ 
+     GetReq(GetDeviceControl, req);
+--- a/src/XGetFCtl.c
++++ b/src/XGetFCtl.c
+@@ -78,7 +78,7 @@ XGetFeedbackControl(dpy, dev, num_feedba
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return ((XFeedbackState *) NoSuchExtension);
+ 
+     GetReq(GetFeedbackControl, req);
+--- a/src/XGetKMap.c
++++ b/src/XGetKMap.c
+@@ -76,7 +76,7 @@ XGetDeviceKeyMapping(register Display * 
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return ((KeySym *) NoSuchExtension);
+ 
+     GetReq(GetDeviceKeyMapping, req);
+--- a/src/XGetMMap.c
++++ b/src/XGetMMap.c
+@@ -72,7 +72,7 @@ XGetDeviceModifierMapping(dpy, dev)
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return ((XModifierKeymap *) NoSuchExtension);
+ 
+     GetReq(GetDeviceModifierMapping, req);
+--- a/src/XGetProp.c
++++ b/src/XGetProp.c
+@@ -75,7 +75,7 @@ Window window;
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return ((XEventClass *) NoSuchExtension);
+ 
+     GetReq(GetDeviceDontPropagateList, req);
+--- a/src/XGetVers.c
++++ b/src/XGetVers.c
+@@ -82,7 +82,7 @@ _XiGetExtensionVersion(register Display 
+     xGetExtensionVersionReply rep;
+     XExtensionVersion *ext;
+ 
+-    if (_XiCheckExtInit(dpy, Dont_Check) == -1)
++    if (_XiCheckExtInit(dpy, Dont_Check, info) == -1)
+ 	return ((XExtensionVersion *) NoSuchExtension);
+ 
+     GetReq(GetExtensionVersion, req);
+--- a/src/XGrDvBut.c
++++ b/src/XGrDvBut.c
+@@ -80,7 +80,7 @@ XGrabDeviceButton(dpy, dev, button, modi
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+ 
+     GetReq(GrabDeviceButton, req);
+--- a/src/XGrDvKey.c
++++ b/src/XGrDvKey.c
+@@ -80,7 +80,7 @@ XGrabDeviceKey(dpy, dev, key, modifiers,
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+ 
+     GetReq(GrabDeviceKey, req);
+--- a/src/XGrabDev.c
++++ b/src/XGrabDev.c
+@@ -78,7 +78,7 @@ XGrabDevice(dpy, dev, grab_window, owner
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+ 
+     GetReq(GrabDevice, req);
+--- a/src/XGtFocus.c
++++ b/src/XGtFocus.c
+@@ -73,7 +73,7 @@ XGetDeviceFocus(dpy, dev, focus, revert_
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+ 
+     GetReq(GetDeviceFocus, req);
+--- a/src/XGtSelect.c
++++ b/src/XGtSelect.c
+@@ -76,7 +76,7 @@ XGetSelectedExtensionEvents(dpy, w, this
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+     GetReq(GetSelectedExtensionEvents, req);
+ 
+--- a/src/XIint.h
++++ b/src/XIint.h
+@@ -10,7 +10,7 @@
+ 
+ extern XExtDisplayInfo *XInput_find_display(Display *);
+ 
+-extern int _XiCheckExtInit(Display *, int);
++extern int _XiCheckExtInit(Display *, int, XExtDisplayInfo *);
+ 
+ extern XExtensionVersion *_XiGetExtensionVersion(Display *, _Xconst char *, XExtDisplayInfo *);
+ 
+--- a/src/XListDev.c
++++ b/src/XListDev.c
+@@ -82,7 +82,7 @@ XListInputDevices(dpy, ndevices)
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return ((XDeviceInfo *) NULL);
+ 
+     GetReq(ListInputDevices, req);
+--- a/src/XOpenDev.c
++++ b/src/XOpenDev.c
+@@ -72,7 +72,7 @@ XOpenDevice(dpy, id)
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return ((XDevice *) NoSuchExtension);
+ 
+     GetReq(OpenDevice, req);
+--- a/src/XQueryDv.c
++++ b/src/XQueryDv.c
+@@ -76,7 +76,7 @@ XQueryDeviceState(dpy, dev)
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return ((XDeviceState *) NoSuchExtension);
+ 
+     GetReq(QueryDeviceState, req);
+--- a/src/XSelect.c
++++ b/src/XSelect.c
+@@ -71,7 +71,7 @@ XSelectExtensionEvent(dpy, w, event_list
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+     GetReq(SelectExtensionEvent, req);
+ 
+--- a/src/XSetBMap.c
++++ b/src/XSetBMap.c
+@@ -75,7 +75,7 @@ XSetDeviceButtonMapping(dpy, device, map
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+     GetReq(SetDeviceButtonMapping, req);
+     req->reqType = info->codes->major_opcode;
+--- a/src/XSetDVal.c
++++ b/src/XSetDVal.c
+@@ -74,7 +74,7 @@ XSetDeviceValuators(dpy, dev, valuators,
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Add_XSetDeviceValuators) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Add_XSetDeviceValuators, info) == -1)
+ 	return (NoSuchExtension);
+ 
+     GetReq(SetDeviceValuators, req);
+--- a/src/XSetMMap.c
++++ b/src/XSetMMap.c
+@@ -72,7 +72,7 @@ XSetDeviceModifierMapping(dpy, dev, modm
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+ 
+     GetReqExtra(SetDeviceModifierMapping, mapSize, req);
+--- a/src/XSetMode.c
++++ b/src/XSetMode.c
+@@ -71,7 +71,7 @@ XSetDeviceMode(dpy, dev, mode)
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+ 
+     GetReq(SetDeviceMode, req);
+--- a/src/XSndExEv.c
++++ b/src/XSndExEv.c
+@@ -81,7 +81,7 @@ XSendExtensionEvent(dpy, dev, dest, prop
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+ 
+     /* call through display to find proper conversion routine */
+--- a/src/XUngrDev.c
++++ b/src/XUngrDev.c
+@@ -70,7 +70,7 @@ XUngrabDevice(dpy, dev, time)
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+ 
+     GetReq(UngrabDevice, req);
+--- a/src/XUngrDvB.c
++++ b/src/XUngrDvB.c
+@@ -73,7 +73,7 @@ XUngrabDeviceButton(dpy, dev, button, mo
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+     GetReq(UngrabDeviceButton, req);
+ 
+--- a/src/XUngrDvK.c
++++ b/src/XUngrDvK.c
+@@ -73,7 +73,7 @@ XUngrabDeviceKey(dpy, dev, key, modifier
+     XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    if (_XiCheckExtInit(dpy, XInput_Initial_Release) == -1)
++    if (_XiCheckExtInit(dpy, XInput_Initial_Release, info) == -1)
+ 	return (NoSuchExtension);
+     GetReq(UngrabDeviceKey, req);
+ 

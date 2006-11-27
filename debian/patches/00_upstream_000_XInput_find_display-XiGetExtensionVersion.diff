@@ -1,0 +1,66 @@
+From: Jamey Sharp <jamey@minilop.net>
+Date: Sun, 15 Oct 2006 07:03:57 +0000 (-0700)
+Subject: Don't call XInput_find_display in _XiGetExtensionVersion, while the Display lock ...
+X-Git-Url: http://gitweb.freedesktop.org/?p=xorg/lib/libXi.git;a=commitdiff;h=5dda1e1509d40ef64ebc816ce538cef462a4fa51
+
+Don't call XInput_find_display in _XiGetExtensionVersion, while the Display lock is held.
+
+_XiGetExtensionVersion has two callers. One had already called
+XInput_find_display, and the other could easily do so outside the
+Display lock. So I change the _XiGetExtensionVersion interface to
+accept a previously-computed XExtDisplayInfo from the caller.
+Besides being more correct, this should be slightly faster. :-)
+
+Thanks to Magnus Kessler <Magnus.Kessler@gmx.net> for identifying
+the bug and proposing a workaround.
+---
+
+--- a/src/XExtInt.c
++++ b/src/XExtInt.c
+@@ -207,7 +207,7 @@ _XiCheckExtInit(dpy, version_index)
+ 	    return (-1);
+ 	}
+ 	((XInputData *) info->data)->vers =
+-	    _XiGetExtensionVersion(dpy, "XInputExtension");
++	    _XiGetExtensionVersion(dpy, "XInputExtension", info);
+     }
+ 
+     if (versions[version_index].major_version > Dont_Check) {
+--- a/src/XGetVers.c
++++ b/src/XGetVers.c
+@@ -64,9 +64,10 @@ XExtensionVersion *
+ XGetExtensionVersion(register Display * dpy, _Xconst char *name)
+ {
+     XExtensionVersion *ext;
++    XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     LockDisplay(dpy);
+-    ext = _XiGetExtensionVersion(dpy, name);
++    ext = _XiGetExtensionVersion(dpy, name, info);
+     if (ext != (XExtensionVersion *) NoSuchExtension) {
+ 	UnlockDisplay(dpy);
+ 	SyncHandle();
+@@ -75,12 +76,11 @@ XGetExtensionVersion(register Display * 
+ }
+ 
+ XExtensionVersion *
+-_XiGetExtensionVersion(register Display * dpy, _Xconst char *name)
++_XiGetExtensionVersion(register Display * dpy, _Xconst char *name, XExtDisplayInfo *info)
+ {
+     xGetExtensionVersionReq *req;
+     xGetExtensionVersionReply rep;
+     XExtensionVersion *ext;
+-    XExtDisplayInfo *info = XInput_find_display(dpy);
+ 
+     if (_XiCheckExtInit(dpy, Dont_Check) == -1)
+ 	return ((XExtensionVersion *) NoSuchExtension);
+--- a/src/XIint.h
++++ b/src/XIint.h
+@@ -12,6 +12,6 @@ extern XExtDisplayInfo *XInput_find_disp
+ 
+ extern int _XiCheckExtInit(Display *, int);
+ 
+-extern XExtensionVersion *_XiGetExtensionVersion(Display *, _Xconst char *);
++extern XExtensionVersion *_XiGetExtensionVersion(Display *, _Xconst char *, XExtDisplayInfo *);
+ 
+ #endif
