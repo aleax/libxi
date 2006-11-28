@@ -1,3 +1,11 @@
+libxi (1:1.0.1-5) UNRELEASED; urgency=low
+
+  * Adjust Section values to what the override says.
+  * Update location of upstream repository from CVS to git in the long
+    descriptions.
+
+ -- Julien Cristau <julien.cristau@ens-lyon.org>  Tue, 28 Nov 2006 02:56:01 +0100
+
 libxi (1:1.0.1-4) unstable; urgency=low
 
   * libXi: Various Display locking correctness issues (Closes: #400442)
