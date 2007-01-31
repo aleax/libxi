@@ -5,6 +5,7 @@ Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Uploaders: David Nusinow <dnusinow@debian.org>, Branden Robinson <branden@debian.org>, Fabio M. Di Nitto <fabbione@fabbione.net>, Drew Parsons <dparsons@debian.org>, Jamey Sharp <sharpone@debian.org>, Josh Triplett <josh@freedesktop.org>
 Build-Depends: debhelper (>= 5.0.0), libx11-dev (>= 1:0.99.2-1), libxext-dev (>= 1:0.99.1-1), x11proto-input-dev (>= 1.4), pkg-config, quilt, xutils-dev
 Standards-Version: 3.7.2
+XS-Vcs-Git: git://git.debian.org/git/pkg-xorg/lib/libxi
 
 Package: libxi6
 Section: libs
