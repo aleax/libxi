@@ -1,4 +1,1 @@
-00_upstream_000_XInput_find_display-XiGetExtensionVersion.diff
-00_upstream_001_XInput_find_display-XiCheckExtInit.diff
 00_upstream_002_XiCheckExtInit_unlockdisplay.diff
-10_manpage_section.diff
