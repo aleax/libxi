@@ -1,4 +1,4 @@
-libxi (1:1.1.0-1) UNRELEASED; urgency=low
+libxi (1:1.1.0-1) experimental; urgency=low
 
   * Adjust Section values to what the override says.
   * Update location of upstream repository from CVS to git in the long
@@ -9,7 +9,7 @@ libxi (1:1.1.0-1) UNRELEASED; urgency=low
   * Install the upstream changelog.
   * Add XS-Vcs-Git header in debian/control.
 
- -- Julien Cristau <julien.cristau@ens-lyon.org>  Sat,  3 Feb 2007 21:20:49 +0100
+ -- Julien Cristau <jcristau@debian.org>  Fri,  9 Feb 2007 12:34:51 +0100
 
 libxi (1:1.0.1-4) unstable; urgency=low
 
