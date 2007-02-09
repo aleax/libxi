@@ -1,3 +1,11 @@
+libxi (1:1.1.0-2) UNRELEASED; urgency=low
+
+  * Pull fixes from upstream git.
+    + remove patch 00_upstream_002_XiCheckExtInit_unlockdisplay.diff applied
+      upstream.
+
+ -- Julien Cristau <jcristau@debian.org>  Fri,  9 Feb 2007 16:45:03 +0100
+
 libxi (1:1.1.0-1) experimental; urgency=low
 
   * Adjust Section values to what the override says.
