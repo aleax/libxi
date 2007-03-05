@@ -1,10 +1,11 @@
-libxi (1:1.1.0-2) experimental; urgency=low
+libxi (2:1.1.0-2) experimental; urgency=low
 
   * Pull fixes from upstream git.
     + remove patch 00_upstream_002_XiCheckExtInit_unlockdisplay.diff applied
       upstream.
+  * Bump epoch to 2 so ubuntu can sync this package.
 
- -- Julien Cristau <jcristau@debian.org>  Mon,  5 Mar 2007 16:59:33 +0100
+ -- Julien Cristau <jcristau@debian.org>  Mon,  5 Mar 2007 17:24:20 +0100
 
 libxi (1:1.1.0-1) experimental; urgency=low
 
