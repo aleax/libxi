@@ -1,3 +1,25 @@
+commit c8696a5230c565f8999fea136a85a875b04e7b9a
+Author: Daniel Stone <daniel@fooishbar.org>
+Date:   Wed Dec 6 18:56:56 2006 +0200
+
+    Makefile.am: make ChangeLog hook safer
+    
+    Make ChangeLog hook as safe as possible.
+
+commit 60dccd9a7be95e35b4b8c90934888efedfde84cc
+Author: Jamey Sharp <jamey@minilop.net>
+Date:   Sun Nov 19 01:04:26 2006 -0800
+
+    Bug #8663: _XiCheckExtInit must drop the Display lock in all error cases.
+
+commit 41710257257939b181a1615937610550b40621b9
+Author: Daniel Stone <daniel@fooishbar.org>
+Date:   Wed Nov 8 16:19:58 2006 +0200
+
+    DevicePresenceNotify: remove verbosity, fill out all fields
+    Don't throw a printf every time we get a DPN, and fill in all the fields
+    when copying the structure.
+
 commit eeebae55766bd4c0121479a7b7188d6a0545f66c
 Author: Daniel Stone <daniel@fooishbar.org>
 Date:   Sat Oct 21 12:08:21 2006 +0300
