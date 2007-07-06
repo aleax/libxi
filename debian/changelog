@@ -1,3 +1,9 @@
+libxi (2:1.1.1-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+
+ -- Julien Cristau <jcristau@debian.org>  Fri, 06 Jul 2007 03:52:46 +0200
+
 libxi (2:1.1.0-2) experimental; urgency=low
 
   * Pull fixes from upstream git.
