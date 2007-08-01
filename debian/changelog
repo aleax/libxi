@@ -2,8 +2,12 @@ libxi (2:1.1.2-1) UNRELEASED; urgency=low
 
   * New upstream release
     + fixes locking bugs (closes: #429147).
+  * Add myself to Uploaders and remove Branden and Fabio with their
+    permission.
+  * Use ${binary:Version} instead of ${Source-Version}.
+  * Add a XS-Vcs-Browser header.
 
- -- Julien Cristau <jcristau@debian.org>  Wed, 01 Aug 2007 04:42:41 +0200
+ -- Julien Cristau <jcristau@debian.org>  Wed, 01 Aug 2007 04:58:04 +0200
 
 libxi (2:1.1.1-1) unstable; urgency=low
 
