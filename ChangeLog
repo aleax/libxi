@@ -1,3 +1,43 @@
+commit bf01e98979e6fa500f74d882c1b21746c60d5d31
+Author: Daniel Stone <daniel@fooishbar.org>
+Date:   Wed Aug 1 05:16:45 2007 +0300
+
+    XSetDeviceFocus: Add missing extension check
+    
+    Actually check for Xi existing before we try to do anything fancy.
+
+commit 8f5f7e9d6fc288a5cc00df3a7fec44211cdbe8f4
+Author: David Weinehall <tao@debian.org>
+Date:   Wed Aug 1 05:12:21 2007 +0300
+
+    XGetSelectedExtensionEvents: Still more locking bugs
+    
+    Fix a couple more return-without-unlocks.
+
+commit a07c3cc1eec0427a056414ef44ef6ee4204df383
+Author: Daniel Stone <daniel@fooishbar.org>
+Date:   Wed Aug 1 03:03:44 2007 +0300
+
+    XChangeDeviceControl: Fix completely broken locking
+    
+    Drop the display lock when we exit from XChangeDeviceControl(), instead of
+    leaking it.
+
+commit 7f1b5257b7eb0c873988c33453c110fc5f9996dd
+Author: Daniel Stone <daniel@fooishbar.org>
+Date:   Wed Aug 1 01:59:17 2007 +0300
+
+    Bump to 1.1.2
+
+commit 257345a0500ef0b7cf8e56f19a8bf93721408673
+Author: Daniel Stone <daniel@fooishbar.org>
+Date:   Wed Aug 1 01:37:05 2007 +0300
+
+    DevicePresenceNotify: Don't make non-static function, static
+    
+    I wish that there was a better way to do this, but c'est la vie.  It's our
+    exposed API, so we've just got to deal for now.
+
 commit 9d0aa39742a0d1d4221ad4104708b0f8f60c14c7
 Author: Peter Hutterer <peter@cs.unisa.edu.au>
 Date:   Thu Jul 5 10:47:45 2007 +0930

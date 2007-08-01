@@ -1,3 +1,10 @@
+libxi (2:1.1.2-1) UNRELEASED; urgency=low
+
+  * New upstream release
+    + fixes locking bugs (closes: #429147).
+
+ -- Julien Cristau <jcristau@debian.org>  Wed, 01 Aug 2007 04:42:41 +0200
+
 libxi (2:1.1.1-1) unstable; urgency=low
 
   * New upstream release.
