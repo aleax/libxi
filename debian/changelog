@@ -1,3 +1,9 @@
+libxi (2:1.1.2-2) UNRELEASED; urgency=low
+
+  * Add upstream URL to debian/copyright.
+
+ -- Julien Cristau <jcristau@debian.org>  Wed, 01 Aug 2007 05:36:40 +0200
+
 libxi (2:1.1.2-1) unstable; urgency=low
 
   * New upstream release
