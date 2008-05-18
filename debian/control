@@ -3,15 +3,15 @@ Section: x11
 Priority: optional
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Uploaders: David Nusinow <dnusinow@debian.org>, Drew Parsons <dparsons@debian.org>, Jamey Sharp <sharpone@debian.org>, Josh Triplett <josh@freedesktop.org>, Julien Cristau <jcristau@debian.org>
-Build-Depends: debhelper (>= 5.0.0), libx11-dev (>= 1:0.99.2-1), libxext-dev (>= 1:0.99.1-1), x11proto-input-dev (>= 1.4), pkg-config, quilt, xutils-dev
-Standards-Version: 3.7.2
-XS-Vcs-Git: git://git.debian.org/git/pkg-xorg/lib/libxi
-XS-Vcs-Browser: http://git.debian.org/?p=pkg-xorg/lib/libxi.git
+Build-Depends: debhelper (>= 5.0.0), libx11-dev (>= 1:0.99.2), libxext-dev (>= 1:0.99.1), x11proto-input-dev (>= 1.4), pkg-config, quilt, xutils-dev
+Standards-Version: 3.7.3
+Vcs-Git: git://git.debian.org/git/pkg-xorg/lib/libxi
+Vcs-Browser: http://git.debian.org/?p=pkg-xorg/lib/libxi.git
 
 Package: libxi6
 Section: libs
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, x11-common
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: X11 Input extension library
  libXi provides an X Window System client interface to the XINPUT
  extension to the X protocol.
@@ -31,7 +31,7 @@ Package: libxi6-dbg
 Section: libdevel
 Architecture: any
 Priority: extra
-Depends: ${shlibs:Depends}, ${misc:Depends}, x11-common, libxi6 (= ${binary:Version})
+Depends: ${shlibs:Depends}, ${misc:Depends}, libxi6 (= ${binary:Version})
 Description: X11 Input extension library (debug package)
  libXi provides an X Window System client interface to the XINPUT
  extension to the X protocol.
