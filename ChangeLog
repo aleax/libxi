@@ -1,3 +1,33 @@
+commit f0ecfd1952289f5ff33297e3358552365e047f09
+Author: Peter Hutterer <peter.hutterer@redhat.com>
+Date:   Mon Nov 17 11:12:39 2008 +1000
+
+    libXi 1.1.4
+
+commit 3e99cc281509c70c9240e71ae55cf4e62c6569ba
+Author: Matthieu Herrb <matthieu.herrb@laas.fr>
+Date:   Sun Mar 9 08:30:32 2008 +0100
+
+    nuke RCS Ids
+
+commit 411340ccb7070e2e966a36f64f2fb3019ea0242a
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Thu Nov 29 13:49:21 2007 -0800
+
+    Coverity #743/744: Returned without freeing storage bufp/savp
+    
+    If either bufp or savp failed to malloc, we returned without freeing the other.
+
+commit 5ac8f5dcfb2cf5f695c903179a5a95ac6bd4303e
+Author: Peter Hutterer <peter@cs.unisa.edu.au>
+Date:   Tue Nov 27 10:47:56 2007 +1030
+
+    GetDeviceControl: calculate the length field correctly.
+    
+    Length field should indicate the length of the struct in bytes. Not the length
+    of the pointer to the struct...
+    (cherry picked from commit ddcc71df2a273a410cb5a933aef5501fa56d84cf)
+
 commit 0239ef13d66113024066b7db8ade3942af563656
 Author: Eric Anholt <eric@anholt.net>
 Date:   Wed Sep 5 09:45:20 2007 -0700
