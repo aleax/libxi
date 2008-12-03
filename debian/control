@@ -7,7 +7,7 @@ Build-Depends:
  debhelper (>= 5.0.0),
  libx11-dev (>= 1:0.99.2),
  libxext-dev (>= 1:0.99.1),
- x11proto-input-dev (>= 1.4),
+ x11proto-input-dev (>= 1.5),
  pkg-config,
  quilt,
  xutils-dev,
