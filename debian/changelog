@@ -3,8 +3,10 @@ libxi (2:1.2.0-1) UNRELEASED; urgency=low
   * New upstream release.
   * debian/control:
     - Bump x11proto-input-dev build-dep to 1.5.
+  * debian/rules:
+    - Bump the shlibs for libxi6.
 
- -- Timo Aaltonen <tepsipakki@ubuntu.com>  Wed, 03 Dec 2008 10:09:00 +0200
+ -- Timo Aaltonen <tepsipakki@ubuntu.com>  Wed, 03 Dec 2008 19:21:26 +0200
 
 libxi (2:1.1.4-2) UNRELEASED; urgency=low
 
