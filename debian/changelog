@@ -1,0 +1,159 @@
+libxi (2:1.1.4-2) UNRELEASED; urgency=low
+
+  [ Julien Cristau ]
+  * Drop -1 debian revisions from build-deps.
+  * Bump Standards-Version to 3.7.3.
+  * Drop the XS- prefix from Vcs-* control fields.
+  * libxi6{,-dbg} don't need to depend on x11-common.
+  * Wrap build-deps in debian/control.
+  * Build-depend on automake and libtool, run autoreconf on build, and allow
+    parallel builds.
+
+  [ Brice Goglin ]
+  * Add a link to www.X.org in the long description.
+
+ -- Brice Goglin <bgoglin@debian.org>  Fri, 13 Jun 2008 11:19:59 +0200
+
+libxi (2:1.1.4-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Julien Cristau <jcristau@debian.org>  Mon, 17 Nov 2008 03:16:48 +0100
+
+libxi (2:1.1.3-1) unstable; urgency=low
+
+  * Add upstream URL to debian/copyright.
+  * New upstream release.
+
+ -- Julien Cristau <jcristau@debian.org>  Thu, 06 Sep 2007 01:45:30 +0200
+
+libxi (2:1.1.2-1) unstable; urgency=low
+
+  * New upstream release
+    + fixes locking bugs (closes: #429147).
+  * Add myself to Uploaders and remove Branden and Fabio with their
+    permission.
+  * Use ${binary:Version} instead of ${Source-Version}.
+  * Add a XS-Vcs-Browser header.
+
+ -- Julien Cristau <jcristau@debian.org>  Wed, 01 Aug 2007 05:07:05 +0200
+
+libxi (2:1.1.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Julien Cristau <jcristau@debian.org>  Fri, 06 Jul 2007 03:52:46 +0200
+
+libxi (2:1.1.0-2) experimental; urgency=low
+
+  * Pull fixes from upstream git.
+    + remove patch 00_upstream_002_XiCheckExtInit_unlockdisplay.diff applied
+      upstream.
+  * Bump epoch to 2 so ubuntu can sync this package.
+
+ -- Julien Cristau <jcristau@debian.org>  Mon,  5 Mar 2007 17:24:20 +0100
+
+libxi (1:1.1.0-1) experimental; urgency=low
+
+  * Adjust Section values to what the override says.
+  * Update location of upstream repository from CVS to git in the long
+    descriptions.
+  * New upstream release.
+    + Drop patches applied upstream
+    + Bump build-dependency on x11proto-input-dev to >= 1.4.
+  * Install the upstream changelog.
+  * Add XS-Vcs-Git header in debian/control.
+
+ -- Julien Cristau <jcristau@debian.org>  Fri,  9 Feb 2007 12:34:51 +0100
+
+libxi (1:1.0.1-4) unstable; urgency=low
+
+  * libXi: Various Display locking correctness issues (Closes: #400442)
+  * Add Josh and myself to Uploaders.
+
+ -- Jamey Sharp <sharpone@debian.org>  Mon, 27 Nov 2006 15:07:34 -0800
+
+libxi (1:1.0.1-3) unstable; urgency=low
+
+  * Bring X11R7.1 into unstable.  Still closes #377204.
+  * dbg package has priority extra.
+
+ -- Drew Parsons <dparsons@debian.org>  Sat, 26 Aug 2006 20:46:35 +1000
+
+libxi (1:1.0.1-2) experimental; urgency=low
+
+  * Patch 10_manpage_section.diff sets the man page section according
+    to the definition given by xutils macros.  Set Build-Depends:
+    xutils-dev to prove the point.  Install man pages using
+    dh_installman.  Closes: #377204.
+
+ -- Drew Parsons <dparsons@debian.org>  Fri, 11 Aug 2006 15:03:27 +1000
+
+libxi (1:1.0.1-1) experimental; urgency=low
+
+  * New upstream version (X11R7.1).
+    - applies patch 01_manpage_location.diff.
+  * libxi provides no header files, so don't try to install usr/include/X11/*
+  * Exclude .la from dh_install.
+
+ -- Drew Parsons <dparsons@debian.org>  Thu, 10 Aug 2006 03:00:53 +1000
+
+libxi (1:1.0.0-6) UNRELEASED; urgency=low
+
+  * Test for obj-$(DEB_BUILD_GNU_TYPE) before creating it during build;
+    idempotency fix.
+  * Run dh_install w/ --list-missing.
+  * Drop duplicate x11-common dep in -dev package.
+  * Bump standards version to 3.7.2.0.
+  * Version x11-common pre-dep in -dev package to 1:7.0.0 to match
+    the rest of Debian.
+  * Bump debhelper compat to 5.
+  * Fix dh_strip call to skip the -dbg package.
+
+ -- Andres Salomon <dilinger@debian.org>  Mon, 17 Jul 2006 01:21:03 -0400
+
+libxi (1:1.0.0-5) unstable; urgency=low
+
+  * Reorder makeshlib command in rules file so that ldconfig is run
+    properly. Thanks Drew Parsons and Steve Langasek.
+  * Add quilt to build-depends
+
+ -- David Nusinow <dnusinow@debian.org>  Wed, 19 Apr 2006 00:36:48 -0400
+
+libxi (1:1.0.0-4) unstable; urgency=low
+
+  * Remove references to xss in -dev and -dbg package descriptions. Thanks
+    Josh Triplett. (closes: #362059)
+
+ -- David Nusinow <dnusinow@debian.org>  Tue, 11 Apr 2006 20:26:26 -0400
+
+libxi (1:1.0.0-3) unstable; urgency=low
+
+  * Upload to unstable
+
+ -- David Nusinow <dnusinow@debian.org>  Thu, 23 Mar 2006 22:44:42 -0500
+
+libxi (1:1.0.0-2) experimental; urgency=low
+
+  * Backport manpage location fix
+
+ -- David Nusinow <dnusinow@debian.org>  Thu,  9 Mar 2006 23:22:36 -0500
+
+libxi (1:1.0.0-1) experimental; urgency=low
+
+  * First modular upload to Debian
+  * Install manpages in libxi-dev. Thanks Julien Cristau.
+
+ -- David Nusinow <dnusinow@debian.org>  Thu, 29 Dec 2005 20:53:15 -0500
+
+libxi (1:1.3.0-2) breezy; urgency=low
+
+  * Bump libx11-dev and libxext-dev Build-Deps to avoid _XOPEN_SOURCE.
+
+ -- Daniel Stone <daniel.stone@ubuntu.com>  Sat, 23 Jul 2005 00:28:53 +1000
+
+libxi (1:1.3.0-1) breezy; urgency=low
+
+  * First libxi release.
+
+ -- Daniel Stone <daniel.stone@ubuntu.com>  Mon, 16 May 2005 22:10:17 +1000
