@@ -1,3 +1,50 @@
+commit 2d586065649304b2864afddee6f6225a4a61a0c9
+Author: Peter Hutterer <peter.hutterer@redhat.com>
+Date:   Wed Dec 3 12:50:45 2008 +1000
+
+    libXi 1.2.0
+    
+    Requires inputproto 1.5.0 or later.
+
+commit 305d356e43462834a2fdd2cf59d47b055c2416fd
+Author: Peter Hutterer <peter.hutterer@redhat.com>
+Date:   Mon Nov 17 11:50:06 2008 +1000
+
+    Add support for XI 1.5 device properties.
+    
+    This is a manual merge from master onto libXi 1.1.4. The branches have
+    diverged too much to make cherry-picking reasonable and readable.
+    
+    This patch includes the property support provided by the combination of the
+    following patches:
+    - 7d5bb99ffce3200f82420c5a5ebac3b445aac633
+    - 0211e3e8277c590349903989f1676f6af4baa44b
+    - bfd2e08f3530091fbcd8c078f684e9aab9057df0
+    - bec02767629ed795582ba3f645299d7036093511
+    - f9a5371d43b2c6023745f766d0e8ceff2acdff60
+    - e179b124aac13387c6f730197b8852c1f69eb9e3
+    
+    Man pages are copied from the parsed docbook output from master.
+
+commit 45b73dc157f326785e1022f5476bfc1f9f514d6e
+Author: Peter Hutterer <peter.hutterer@redhat.com>
+Date:   Mon Nov 17 11:44:31 2008 +1000
+
+    Add XI_JOYSTICK to list of defined types.
+    (cherry picked from commit e5c529813b04327babc20e51ca56006210cb0c37)
+    
+    Conflicts:
+    
+    	man/XI.xml
+
+commit 88e2bf75cc619bb1ddc51e5dc65ddb9d712f69f5
+Author: Peter Hutterer <peter.hutterer@redhat.com>
+Date:   Mon Nov 17 11:35:59 2008 +1000
+
+    Bump to 1.1.99.2.
+    
+    1.1.99.1 was used by master for a while.
+
 commit f0ecfd1952289f5ff33297e3358552365e047f09
 Author: Peter Hutterer <peter.hutterer@redhat.com>
 Date:   Mon Nov 17 11:12:39 2008 +1000
