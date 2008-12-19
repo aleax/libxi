@@ -1,4 +1,4 @@
-libxi (2:1.2.0-1) UNRELEASED; urgency=low
+libxi (2:1.2.0-1) experimental; urgency=low
 
   [ Timo Aaltonen ]
   * New upstream release.
@@ -20,7 +20,7 @@ libxi (2:1.2.0-1) UNRELEASED; urgency=low
   [ Brice Goglin ]
   * Add a link to www.X.org in the long description.
 
- -- Brice Goglin <bgoglin@debian.org>  Fri, 13 Jun 2008 11:19:59 +0200
+ -- Julien Cristau <jcristau@debian.org>  Fri, 19 Dec 2008 15:55:22 +0100
 
 libxi (2:1.1.4-1) unstable; urgency=low
 
