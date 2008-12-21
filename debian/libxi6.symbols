@@ -29,7 +29,6 @@ libXi.so.6 libxi6 #MINVER#
  XGrabDevice@Base 0
  XGrabDeviceButton@Base 0
  XGrabDeviceKey@Base 0
- XInput_find_display@Base 0
  XListDeviceProperties@Base 2:1.2.0
  XListInputDevices@Base 0
  XOpenDevice@Base 0
@@ -44,10 +43,7 @@ libXi.so.6 libxi6 #MINVER#
  XUngrabDevice@Base 0
  XUngrabDeviceButton@Base 0
  XUngrabDeviceKey@Base 0
- _XiCheckExtInit@Base 0
- _XiEventToWire@Base 0
  _XiGetDevicePresenceNotifyEvent@Base 2:1.1.2
- _XiGetExtensionVersion@Base 0
  _xibadclass@Base 0
  _xibaddevice@Base 0
  _xibadevent@Base 0
