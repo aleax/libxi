@@ -1,3 +1,47 @@
+commit 69422ae36ede8fd5d7975c1e2b74c32906ad8535
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Thu Feb 26 09:20:44 2009 +1000
+
+    libXi 1.2.1
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit f63ea39a328ce0e5e6c980243e2ebea15634dc7d
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Wed Feb 25 17:00:16 2009 +1000
+
+    XGetDeviceControl: size the libXi structs, not the wire structs (#20293)
+    
+    X.Org Bug 20293 <http://bugs.freedesktop.org/show_bug.cgi?id=20293>
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    (cherry picked from commit cbdc33d903ec6f90a42ec3c31905eeaef9ecf0a2)
+
+commit 6e65cf0776019b2eec6be4a06fef7838562e94a8
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Wed Feb 25 16:59:04 2009 +1000
+
+    XGetDeviceControl: Add a missing break leading to wrong length calculation.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    (cherry picked from commit 78f64722c57ff5ec5d0ae35da0c8f151598e6d6b)
+
+commit 17df06d5aeceb4798caf487a1d57efe58fa7e3fa
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Mon Feb 2 20:34:34 2009 -0800
+
+    Add README with pointers to mailing list, bugzilla & git repos
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@sun.com>
+    (cherry picked from commit 6e1159a9059d762d6b5d24455237a088e839fe2c)
+
+commit f2f92b1df861c1f571edc89eddbb8d72a228e2a8
+Author: Paulo Cesar Pereira de Andrade <pcpa@mandriva.com.br>
+Date:   Thu Jan 29 19:30:30 2009 -0200
+
+    Return NULL on error, and match LockDisplay with UnlockDisplay.
+    (cherry picked from commit ba2546a51d5f9087ec54fba7cae46ea1f210198a)
+
 commit 2d586065649304b2864afddee6f6225a4a61a0c9
 Author: Peter Hutterer <peter.hutterer@redhat.com>
 Date:   Wed Dec 3 12:50:45 2008 +1000
@@ -233,14 +277,14 @@ Date:   Sat Oct 14 23:56:20 2006 -0700
     Add *.o to .gitignore.
 
 commit 6e08a76fd8e356f98d2d6913f0c1b1401090768d
-Merge: ba84e84... 360ceac...
+Merge: ba84e84 360ceac
 Author: Daniel Stone <daniel@fooishbar.org>
 Date:   Sun Sep 24 20:02:24 2006 +0300
 
     Merge branch 'master' of git+ssh://git.freedesktop.org/git/xorg/lib/libXi
 
 commit ba84e84575b4167b0c6298e86a860b0741e2d2a3
-Merge: 93d3c2c... 576c579...
+Merge: 93d3c2c 576c579
 Author: Daniel Stone <daniel@fooishbar.org>
 Date:   Sun Sep 24 19:58:56 2006 +0300
 
