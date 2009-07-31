@@ -1,3 +1,9 @@
+libxi (2:1.2.1-3) UNRELEASED; urgency=low
+
+  * Add README.source from xsfbs.  Bump Standards-Version to 3.8.1.
+
+ -- Timo Aaltonen <tjaalton@ubuntu.com>  Fri, 31 Jul 2009 14:25:21 +0300
+
 libxi (2:1.2.1-2) unstable; urgency=low
 
   * Fix typo in debian/rules, which made us build with make -j if
