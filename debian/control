@@ -5,12 +5,14 @@ Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Uploaders: David Nusinow <dnusinow@debian.org>, Drew Parsons <dparsons@debian.org>, Jamey Sharp <sharpone@debian.org>, Josh Triplett <josh@freedesktop.org>, Julien Cristau <jcristau@debian.org>
 Build-Depends:
  debhelper (>= 5.0.0),
- libx11-dev (>= 1:0.99.2),
- libxext-dev (>= 1:0.99.1),
- x11proto-input-dev (>= 1.5),
+ x11proto-core-dev (>= 7.0.13),
+ x11proto-xext-dev (>= 7.0.3),
+ x11proto-input-dev (>= 1.9.99.902),
+ libx11-dev (>= 2:1.2.99.1),
+ libxext-dev (>= 2:1.0.99.1),
  pkg-config,
  quilt,
- xutils-dev,
+ xutils-dev (>= 1:7.4+4),
  automake,
  libtool
 Standards-Version: 3.8.1
@@ -64,7 +66,7 @@ Description: X11 Input extension library (debug package)
 Package: libxi-dev
 Section: libdevel
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libxi6 (= ${binary:Version}), libx11-dev, libxext-dev, x11proto-input-dev (>= 1.5)
+Depends: ${shlibs:Depends}, ${misc:Depends}, libxi6 (= ${binary:Version}), libx11-dev, libxext-dev, x11proto-input-dev (>= 1.9.99.902)
 Description: X11 Input extension library (development headers)
  libXi provides an X Window System client interface to the XINPUT
  extension to the X protocol.
