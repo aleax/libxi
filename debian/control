@@ -38,7 +38,7 @@ Description: X11 Input extension library
  git://anongit.freedesktop.org/git/xorg/lib/libXi
 
 Package: libxi6-dbg
-Section: libdevel
+Section: debug
 Architecture: any
 Priority: extra
 Depends: ${shlibs:Depends}, ${misc:Depends}, libxi6 (= ${binary:Version})
