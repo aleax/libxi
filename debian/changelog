@@ -1,4 +1,4 @@
-libxi (2:1.2.99.4-1) UNRELEASED; urgency=low
+libxi (2:1.2.99.4-1) experimental; urgency=low
 
   [ Timo Aaltonen ]
   * Add README.source from xsfbs.  Bump Standards-Version to 3.8.1.
@@ -12,7 +12,7 @@ libxi (2:1.2.99.4-1) UNRELEASED; urgency=low
   * Also remove config.h.in in clean.
   * Bump shlibs and update symbols.
 
- -- Timo Aaltonen <tjaalton@ubuntu.com>  Fri, 31 Jul 2009 14:25:21 +0300
+ -- Julien Cristau <jcristau@debian.org>  Tue, 29 Sep 2009 14:24:21 +0200
 
 libxi (2:1.2.1-2) unstable; urgency=low
 
