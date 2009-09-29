@@ -5,6 +5,8 @@ libxi (2:1.2.1-3) UNRELEASED; urgency=low
 
   [ Julien Cristau ]
   * Move libxi6-dbg to section 'debug'.
+  * Drop libxi-dev pre-dependency on x11-common, only needed for upgrades from
+    sarge.
 
  -- Timo Aaltonen <tjaalton@ubuntu.com>  Fri, 31 Jul 2009 14:25:21 +0300
 
