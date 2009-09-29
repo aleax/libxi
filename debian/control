@@ -10,6 +10,8 @@ Build-Depends:
  x11proto-input-dev (>= 1.9.99.902),
  libx11-dev (>= 2:1.2.99.1),
  libxext-dev (>= 2:1.0.99.1),
+ xmlto,
+ asciidoc (>= 8.4.5),
  pkg-config,
  quilt,
  xutils-dev (>= 1:7.4+4),
