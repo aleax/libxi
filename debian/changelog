@@ -9,6 +9,7 @@ libxi (2:1.2.99.4-1) UNRELEASED; urgency=low
     sarge.
   * New upstream release candidate.
   * XInput.h moved here from x11proto-input-dev; add Replaces.
+  * Also remove config.h.in in clean.
 
  -- Timo Aaltonen <tjaalton@ubuntu.com>  Fri, 31 Jul 2009 14:25:21 +0300
 
