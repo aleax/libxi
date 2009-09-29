@@ -1,3 +1,5 @@
+.deps
+.libs
 aclocal.m4
 autom4te.cache
 compile
@@ -5,6 +7,7 @@ config.guess
 config.log
 config.status
 config.sub
+config.h*
 configure
 depcomp
 INSTALL
@@ -16,5 +19,15 @@ Makefile.in
 MakeOut
 missing
 mkinstalldirs
+stamp-h1
 xi.pc
+*.man
+*.stamp
 *~
+*.3
+*.o
+*.la
+*.lo
+libXi-*.tar.*
+ChangeLog
+tags
