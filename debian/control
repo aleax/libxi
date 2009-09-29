@@ -67,6 +67,8 @@ Package: libxi-dev
 Section: libdevel
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libxi6 (= ${binary:Version}), libx11-dev, libxext-dev, x11proto-input-dev (>= 1.9.99.902)
+Replaces:
+ x11proto-input-dev (<< 1.9.99)
 Description: X11 Input extension library (development headers)
  libXi provides an X Window System client interface to the XINPUT
  extension to the X protocol.
