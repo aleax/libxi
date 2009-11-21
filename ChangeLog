@@ -1,3 +1,94 @@
+commit 63621888d6e36a2f9e41e81c14728d70beeff5ee
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Fri Oct 2 12:09:17 2009 +1000
+
+    libXi 1.3
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 9dc825a3dede81d2425770662daefe7e19644d6d
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Fri Oct 2 12:08:30 2009 +1000
+
+    Require macros 1.3 for XORG_DEFAULT_OPTIONS
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 3530845c70b0d7f9f853b29337c9397a3a599e52
+Author: Julien Cristau <jcristau@debian.org>
+Date:   Tue Sep 29 14:15:06 2009 +0200
+
+    Don't export sizeDeviceClassType, size_classes and copy_classes
+    
+    Signed-off-by: Julien Cristau <jcristau@debian.org>
+
+commit 801d77d035a10250dab728c046a6e9b2775e6dfb
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Thu Sep 24 14:14:48 2009 +1000
+
+    XQueryDeviceState: correct length of XValuatorState
+    
+    The length is suppposed to be the complete class size, not just the struct
+    size. Since XValuatorState is followed by multiple valuator values the
+    size of the class is variable and dependent on the number of valuators.
+    
+    The server assembles the valuator state last. This bug is unlikely to affect
+    clients as they should never go past the last class anyway.
+    
+    Tested-by: Thomas Jaeger
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit bff36ef5797d7da11972ee22ea224e207af77455
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Thu Sep 24 13:10:26 2009 +1000
+
+    man: correct XQueryDeviceState return value.
+    
+    And one indentation fix in the same man page.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 9c5ba6ff3fcff30507f285f2e67afbdb296a2318
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Mon Sep 14 16:34:18 2009 +1000
+
+    Declare _xibad* functions before the Bad* macros.
+    
+    Reported-by: Christian Beier
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 369600cf37cd884793c4802a56c8355bc1812dc6
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Mon Sep 7 12:22:06 2009 +1000
+
+    mask_len in XIGrabDevice is in 4-byte units (#23708)
+    
+    X.Org Bug 23708 <http://bugs.freedesktop.org/show_bug.cgi?id=23708>
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit fa09375a69a02cd789c70d60970a669700eaeb20
+Author: Arkadiusz Miśkiewicz <arekm@maven.pl>
+Date:   Sat Sep 5 20:39:47 2009 +0200
+
+    libXi: Man page files end with LIB_MAN_SUFFIX not LIB_MAN_DIR_SUFFIX.
+    
+    Using LIB_MAN_DIR_SUFFIX as man page files suffix is invalid since
+    there can be files ending with eg. 5x while being in man5 dir
+    (share/man/man5/man.5x) as required by FHS 2.3.
+    
+    Man page files and with LI
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 693d9a43f16d4ffd085099b532a10467aa095c17
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Tue Sep 1 16:42:38 2009 +1000
+
+    Initialize send_event for cookie events. (#23609)
+    
+    X.Org Bug 23609 <http://bugs.freedesktop.org/show_bug.cgi?id=23609>
+
 commit eb9a2d63487641faa97d88cef3fa1c892a8f342f
 Author: Peter Hutterer <peter.hutterer@who-t.net>
 Date:   Tue Aug 25 11:03:04 2009 +1000
