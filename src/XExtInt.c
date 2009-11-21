@@ -102,8 +102,6 @@ extern int _XiGetDevicePresenceNotifyEvent(
 
 int copy_classes(XIDeviceInfo *to, xXIAnyInfo* from, int nclasses);
 int size_classes(xXIAnyInfo* from, int nclasses);
-int sizeDeviceClassType(int type, int num_elements);
-
 
 static XExtensionInfo *xinput_info;
 static /* const */ char *xinput_extension_name = INAME;
@@ -961,7 +959,7 @@ sizeDeviceEvent(int buttons_len, int valuators_len,
  *
  * Also used from copy_classes in XIQueryDevice.c
  */
-int
+static int
 sizeDeviceClassType(int type, int num_elements)
 {
     int l = 0;
@@ -1292,6 +1290,7 @@ wireToDeviceEvent(xXIDeviceEvent *in, XGenericEventCookie* cookie)
     out->type = in->type;
     out->extension = in->extension;
     out->evtype = in->evtype;
+    out->send_event = ((in->type & 0x80) != 0);
     out->time = in->time;
     out->deviceid = in->deviceid;
     out->sourceid = in->sourceid;
@@ -1341,7 +1340,7 @@ wireToDeviceEvent(xXIDeviceEvent *in, XGenericEventCookie* cookie)
     return 1;
 }
 
-int
+_X_HIDDEN int
 size_classes(xXIAnyInfo* from, int nclasses)
 {
     int len, i;
@@ -1382,7 +1381,7 @@ size_classes(xXIAnyInfo* from, int nclasses)
  *    |________|___________^
  *             |______________________^
  */
-int
+_X_HIDDEN int
 copy_classes(XIDeviceInfo* to, xXIAnyInfo* from, int nclasses)
 {
     XIAnyClassInfo *any_lib;
@@ -1489,6 +1488,7 @@ wireToDeviceChangedEvent(xXIDeviceChangedEvent *in, XGenericEventCookie *cookie)
     out->type = in->type;
     out->extension = in->extension;
     out->evtype = in->evtype;
+    out->send_event = ((in->type & 0x80) != 0);
     out->time = in->time;
     out->deviceid = in->deviceid;
     out->sourceid = in->sourceid;
@@ -1518,6 +1518,7 @@ wireToHierarchyChangedEvent(xXIHierarchyEvent *in, XGenericEventCookie *cookie)
     out->type           = in->type;
     out->extension      = in->extension;
     out->evtype         = in->evtype;
+    out->send_event = ((in->type & 0x80) != 0);
     out->time           = in->time;
     out->flags          = in->flags;
     out->num_info       = in->num_info;
@@ -1558,6 +1559,7 @@ wireToRawEvent(xXIRawEvent *in, XGenericEventCookie *cookie)
     out->type           = in->type;
     out->extension      = in->extension;
     out->evtype         = in->evtype;
+    out->send_event = ((in->type & 0x80) != 0);
     out->time           = in->time;
     out->detail         = in->detail;
     out->deviceid       = in->deviceid;
@@ -1600,6 +1602,7 @@ wireToEnterLeave(xXIEnterEvent *in, XGenericEventCookie *cookie)
     out->type           = in->type;
     out->extension      = in->extension;
     out->evtype         = in->evtype;
+    out->send_event = ((in->type & 0x80) != 0);
     out->time           = in->time;
     out->detail         = in->detail;
     out->deviceid       = in->deviceid;
@@ -1640,6 +1643,7 @@ wireToPropertyEvent(xXIPropertyEvent *in, XGenericEventCookie *cookie)
     out->type           = in->type;
     out->extension      = in->extension;
     out->evtype         = in->evtype;
+    out->send_event = ((in->type & 0x80) != 0);
     out->time           = in->time;
     out->property       = in->property;
     out->what           = in->what;
