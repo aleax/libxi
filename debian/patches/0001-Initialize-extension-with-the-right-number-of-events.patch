@@ -22,7 +22,7 @@ diff --git a/src/XExtInt.c b/src/XExtInt.c
 index e87ead8..125a72e 100644
 --- a/src/XExtInt.c
 +++ b/src/XExtInt.c
-@@ -173,6 +173,63 @@ static char *XInputErrorList[] = {
+@@ -173,6 +173,64 @@ static char *XInputErrorList[] = {
      "BadClass, invalid event class",	/* BadClass */
  };
  
@@ -47,16 +47,17 @@ index e87ead8..125a72e 100644
 +    LockDisplay(dpy);
 +    extversion = _XiGetExtensionVersionRequest(dpy, INAME,
 +            codes.major_opcode);
-+    if (!extversion || !extversion->present)
-+        goto out;
 +    UnlockDisplay(dpy);
 +    SyncHandle();
++    if (!extversion || !extversion->present)
++        goto out;
 +
 +    if (extversion->major_version >= 2)
 +        nevents = IEVENTS; /* number is fixed, XI2 adds GenericEvents only */
 +    else if (extversion->major_version <= 0)
 +    {
-+        printf("XInput_find_display: invalid extension version %d.%d\n",
++        fprintf(stderr,
++                "XInput_find_display: invalid extension version %d.%d\n",
 +                extversion->major_version, extversion->minor_version);
 +        goto out;
 +    }
@@ -65,13 +66,13 @@ index e87ead8..125a72e 100644
 +        switch(extversion->minor_version)
 +        {
 +            case XI_Add_DeviceProperties_Minor:
-+                nevents = XI_DevicePropertyNotify - 1;
++                nevents = XI_DevicePropertyNotify + 1;
 +                break;
 +            case  XI_Add_DevicePresenceNotify_Minor:
-+                nevents = XI_DevicePresenceNotify - 1;
++                nevents = XI_DevicePresenceNotify + 1;
 +                break;
 +            default:
-+                nevents = XI_DeviceButtonstateNotify - 1;
++                nevents = XI_DeviceButtonstateNotify + 1;
 +                break;
 +        }
 +    }
