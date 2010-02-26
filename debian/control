@@ -42,7 +42,7 @@ Description: X11 Input extension library
  git://anongit.freedesktop.org/git/xorg/lib/libXi
 
 Package: libxi6-udeb
-Package-Type: udeb
+XC-Package-Type: udeb
 Section: debian-installer
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
