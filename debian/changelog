@@ -11,6 +11,9 @@ libxi (2:1.3-3) UNRELEASED; urgency=low
   [ Brice Goglin ]
   * Remove Jamey Sharp and Josh Triplett from Uploaders, closes: #568276.
 
+  [ Cyril Brulebois ]
+  * Bump Standards-Version from 3.8.3 to 3.8.4 (no changes needed).
+
  -- Julien Cristau <jcristau@debian.org>  Sat, 16 Jan 2010 16:47:38 +0000
 
 libxi (2:1.3-2) unstable; urgency=low
