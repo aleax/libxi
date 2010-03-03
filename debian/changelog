@@ -1,4 +1,4 @@
-libxi (2:1.3-3) UNRELEASED; urgency=low
+libxi (2:1.3-3) unstable; urgency=low
 
   [ Julien Cristau ]
   * Rename the build directory to not include DEB_BUILD_GNU_TYPE for no
@@ -13,8 +13,9 @@ libxi (2:1.3-3) UNRELEASED; urgency=low
 
   [ Cyril Brulebois ]
   * Bump Standards-Version from 3.8.3 to 3.8.4 (no changes needed).
+  * Upload to unstable.
 
- -- Julien Cristau <jcristau@debian.org>  Sat, 16 Jan 2010 16:47:38 +0000
+ -- Cyril Brulebois <kibi@debian.org>  Wed, 03 Mar 2010 22:14:43 +0100
 
 libxi (2:1.3-2) unstable; urgency=low
 
