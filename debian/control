@@ -41,6 +41,14 @@ Description: X11 Input extension library
  This module can be found at
  git://anongit.freedesktop.org/git/xorg/lib/libXi
 
+Package: libxi6-udeb
+Package-Type: udeb
+Section: debian-installer
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: X11 Input extension library
+ This is a udeb, or a microdeb, for the debian-installer.
+
 Package: libxi6-dbg
 Section: debug
 Architecture: any

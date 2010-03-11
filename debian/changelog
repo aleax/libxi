@@ -1,3 +1,9 @@
+libxi (2:1.3-4) UNRELEASED; urgency=low
+
+  * Add udeb needed for the graphical installer: libxi6-udeb.
+
+ -- Cyril Brulebois <kibi@debian.org>  Thu, 11 Mar 2010 22:44:12 +0100
+
 libxi (2:1.3-3) unstable; urgency=low
 
   [ Julien Cristau ]
