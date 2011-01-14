@@ -14,7 +14,7 @@ Build-Depends:
  asciidoc (>= 8.4.5),
  pkg-config,
  quilt,
- xutils-dev (>= 1:7.4+4),
+ xutils-dev (>= 1:7.5+4),
  automake,
  libtool
 Standards-Version: 3.8.4
