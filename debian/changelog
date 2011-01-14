@@ -4,6 +4,7 @@ libxi (2:1.4-1) UNRELEASED; urgency=low
   * Update debian/copyright from upstream COPYING.
   * Bump xutils-dev build-dep for new macros.
   * Pass --with-xmlto and --without-fop to configure.
+  * Add xmlto, xorg-sgml-doctools, and w3m build-dep accordingly.
 
  -- Cyril Brulebois <kibi@debian.org>  Fri, 14 Jan 2011 06:02:57 +0100
 
