@@ -3,6 +3,7 @@ libxi (2:1.4-1) UNRELEASED; urgency=low
   * New upstream release.
   * Update debian/copyright from upstream COPYING.
   * Bump xutils-dev build-dep for new macros.
+  * Pass --with-xmlto and --without-fop to configure.
 
  -- Cyril Brulebois <kibi@debian.org>  Fri, 14 Jan 2011 06:02:57 +0100
 

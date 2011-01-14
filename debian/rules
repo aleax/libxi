@@ -40,6 +40,8 @@ build/config.status: configure
 	cd build && \
 	../configure --prefix=/usr --mandir=\$${prefix}/share/man \
 	             --infodir=\$${prefix}/share/info $(confflags) \
+	             --with-xmlto \
+	             --without-fop \
 	             CFLAGS="$(CFLAGS)" 
 
 
