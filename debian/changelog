@@ -7,6 +7,7 @@ libxi (2:1.4-1) UNRELEASED; urgency=low
   * Add xmlto, xorg-sgml-doctools, and w3m build-dep accordingly.
   * Switch dh_install from --list-missing to --fail-missing for added
     safety.
+  * Get rid of *.xml files before running dh_install.
 
  -- Cyril Brulebois <kibi@debian.org>  Fri, 14 Jan 2011 06:02:57 +0100
 
