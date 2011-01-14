@@ -1,6 +1,7 @@
 libxi (2:1.4-1) UNRELEASED; urgency=low
 
   * New upstream release.
+  * Update debian/copyright from upstream COPYING.
 
  -- Cyril Brulebois <kibi@debian.org>  Fri, 14 Jan 2011 06:02:57 +0100
 
