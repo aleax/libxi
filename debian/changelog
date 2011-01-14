@@ -1,4 +1,4 @@
-libxi (2:1.4-1) UNRELEASED; urgency=low
+libxi (2:1.4.0-1) experimental; urgency=low
 
   * New upstream release.
   * Update debian/copyright from upstream COPYING.
@@ -10,7 +10,7 @@ libxi (2:1.4-1) UNRELEASED; urgency=low
   * Get rid of *.xml files before running dh_install.
   * Ship *.html, *.txt, *.css in libxi-dev.
 
- -- Cyril Brulebois <kibi@debian.org>  Fri, 14 Jan 2011 06:02:57 +0100
+ -- Cyril Brulebois <kibi@debian.org>  Fri, 14 Jan 2011 06:22:37 +0100
 
 libxi (2:1.3-6) unstable; urgency=medium
 
