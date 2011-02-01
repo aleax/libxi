@@ -1,3 +1,13 @@
+libxi (2:1.4.1-1ubuntu1) UNRELEASED; urgency=low
+
+  * Add xi 2.1 support
+    - Added 1_xi2.1.patch
+    - Bump dependency on x11proto-input-dev for xi 2.1
+    - Add new xi 2.1 symbols to symbols file
+  * Update maintainer for Ubuntu upload
+
+ -- Chase Douglas <chase.douglas@ubuntu.com>  Mon, 21 Feb 2011 19:54:15 -0500
+
 libxi (2:1.4.1-1) unstable; urgency=low
 
   * New upstream release.

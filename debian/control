@@ -1,13 +1,14 @@
 Source: libxi
 Section: x11
 Priority: optional
-Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Maintainer: Ubuntu X-SWAT <ubuntu-x@lists.ubuntu.com>
+XSBC-Original-Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Uploaders: David Nusinow <dnusinow@debian.org>, Drew Parsons <dparsons@debian.org>, Cyril Brulebois <kibi@debian.org>
 Build-Depends:
  debhelper (>= 5.0.0),
  x11proto-core-dev (>= 7.0.13),
  x11proto-xext-dev (>= 7.0.3),
- x11proto-input-dev (>= 1.9.99.902),
+ x11proto-input-dev (>= 2.0.1-1ubuntu1),
  libx11-dev (>= 2:1.3.3-2),
  libxext-dev (>= 2:1.1.1-3),
  xmlto,
@@ -82,7 +83,7 @@ Depends:
  libxi6 (= ${binary:Version}),
  libx11-dev,
  libxext-dev,
- x11proto-input-dev (>= 1.9.99.902),
+ x11proto-input-dev (>= 2.0.1-1ubuntu1),
  xorg-sgml-doctools (>= 1:1.5),
 Replaces:
  x11proto-input-dev (<< 1.9.99)

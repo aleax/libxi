@@ -1,5 +1,6 @@
 libXi.so.6 libxi6 #MINVER#
  XAllowDeviceEvents@Base 0
+ XIAllowTouchEvents@Base 2:1.4.1-1ubuntu1
  XChangeDeviceControl@Base 0
  XChangeDeviceDontPropagateList@Base 0
  XChangeDeviceKeyMapping@Base 0
@@ -27,6 +28,7 @@ libXi.so.6 libxi6 #MINVER#
  XGetFeedbackControl@Base 0
  XGetSelectedExtensionEvents@Base 0
  XGrabDevice@Base 0
+ XIGrabTouchBegin@Base 2:1.4.1-1ubuntu1
  XIAllowEvents@Base 2:1.2.99.4
  XIChangeHierarchy@Base 2:1.2.99.4
  XIChangeProperty@Base 2:1.2.99.4
@@ -72,6 +74,7 @@ libXi.so.6 libxi6 #MINVER#
  XUngrabDevice@Base 0
  XUngrabDeviceButton@Base 0
  XUngrabDeviceKey@Base 0
+ XIUngrabTouchBegin@Base 2:1.4.1-1ubuntu1
  _XiGetDevicePresenceNotifyEvent@Base 2:1.1.2
  _xibadclass@Base 0
  _xibaddevice@Base 0
