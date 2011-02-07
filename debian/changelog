@@ -1,9 +1,10 @@
-libxi (2:1.4.1-1) UNRELEASED; urgency=low
+libxi (2:1.4.1-1) unstable; urgency=low
 
   * New upstream release.
   * Use xorg-sgml-doctool's copy of xorg.css.
+  * Upload to unstable.
 
- -- Julien Cristau <jcristau@debian.org>  Mon, 07 Feb 2011 23:48:11 +0100
+ -- Julien Cristau <jcristau@debian.org>  Tue, 08 Feb 2011 00:04:32 +0100
 
 libxi (2:1.4.0-1) experimental; urgency=low
 
