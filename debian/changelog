@@ -1,6 +1,7 @@
 libxi (2:1.4.1-1) UNRELEASED; urgency=low
 
   * New upstream release.
+  * Use xorg-sgml-doctool's copy of xorg.css.
 
  -- Julien Cristau <jcristau@debian.org>  Mon, 07 Feb 2011 23:48:11 +0100
 

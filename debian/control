@@ -76,7 +76,14 @@ Description: X11 Input extension library (debug package)
 Package: libxi-dev
 Section: libdevel
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libxi6 (= ${binary:Version}), libx11-dev, libxext-dev, x11proto-input-dev (>= 1.9.99.902)
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ libxi6 (= ${binary:Version}),
+ libx11-dev,
+ libxext-dev,
+ x11proto-input-dev (>= 1.9.99.902),
+ xorg-sgml-doctools (>= 1:1.5),
 Replaces:
  x11proto-input-dev (<< 1.9.99)
 Description: X11 Input extension library (development headers)
