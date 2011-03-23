@@ -1,4 +1,4 @@
-libxi (2:1.4.1-1ubuntu1) UNRELEASED; urgency=low
+libxi (2:1.4.1-1ubuntu1) natty; urgency=low
 
   * Add xi 2.1 support
     - Added 1_xi2.1.patch
