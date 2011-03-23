@@ -1,3 +1,9 @@
+libxi (2:1.4.1-1ubuntu2) natty; urgency=low
+
+  * FFe LP: #733501: build for multiarch.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Wed, 23 Mar 2011 00:37:35 -0700
+
 libxi (2:1.4.1-1ubuntu1) natty; urgency=low
 
   * Add xi 2.1 support
