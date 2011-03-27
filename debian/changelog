@@ -1,8 +1,12 @@
-libxi (2:1.4.1-2) UNRELEASED; urgency=low
+libxi (2:1.4.2-1) UNRELEASED; urgency=low
 
+  [ Julien Cristau ]
   * Bump Standards-Version to 3.9.1 (no changes).
 
- -- Julien Cristau <jcristau@debian.org>  Tue, 08 Feb 2011 00:41:50 +0100
+  [ Cyril Brulebois ]
+  * New upstream release.
+
+ -- Cyril Brulebois <kibi@debian.org>  Sun, 27 Mar 2011 06:35:40 +0200
 
 libxi (2:1.4.1-1) unstable; urgency=low
 
