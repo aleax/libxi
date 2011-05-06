@@ -1,3 +1,14 @@
+libxi (2:1.4.1-1ubuntu3) oneiric; urgency=low
+
+  * Add 100_len_raw_events.patch: Cherrypick upstream patch to correct the
+    use of the calculated structure length for memory allocations.  Fixes
+    issue where incorrect memory size was allocated, leading to valuator
+    data overwriting memory, resulting in an error "Invalid write of size
+    1" and heap corruption causing applications to crash when they use Raw
+    Events.  (LP: #770522)
+
+ -- Bryce Harrington <bryce@ubuntu.com>  Thu, 05 May 2011 14:11:39 -0700
+
 libxi (2:1.4.1-1ubuntu2) natty; urgency=low
 
   * FFe LP: #733501: build for multiarch.
