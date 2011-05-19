@@ -1,0 +1,51 @@
+commit af65475b1f6b7209750220a74aaad9968d54aaf7
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Tue May 3 13:21:02 2011 +1000
+
+    Allocate enough memory for raw events + extra data.
+    
+    Necessary space was calculated, but not actually used to allocate memory. As
+    a result, valuator data would overwrite the allocated memory.
+    
+    ==4166== Invalid write of size 1
+    ==4166==    at 0x4C29F04: memcpy (mc_replace_strmem.c:497)
+    ==4166==    by 0x8F39180: ??? (in /usr/lib/libXi.so.6.1.0)
+    ==4166==    by 0x7433D48: _XCopyEventCookie (in /usr/lib/libX11.so.6.3.0)
+    ==4166==    by 0x7425166: XPeekEvent (in /usr/lib/libX11.so.6.3.0)
+    ==4166==    by 0x49C3E3: process_key (x11_be.c:1065)
+    ==4166==    by 0x49EA5C: event_key_release (x11_be.c:2201)
+    ==4166==    by 0x49DD6E: x11_be_process_events (x11_be.c:1892)
+    ==4166==    by 0x4A38F4: x11_be_main_loop (x11_be.c:4353)
+    ==4166==    by 0x4A39E1: x11_be_thread_main (x11_be.c:4385)
+    ==4166==    by 0x87549C9: start_thread (pthread_create.c:300)
+    ==4166==    by 0x8A516FC: clone (clone.S:112)
+    ==4166==  Address 0x168afe80 is 0 bytes after a block of size 96 alloc'd
+    ==4166==    at 0x4C284A8: malloc (vg_replace_malloc.c:236)
+    ==4166==    by 0x8F390BD: ??? (in /usr/lib/libXi.so.6.1.0)
+    ==4166==    by 0x7433D48: _XCopyEventCookie (in /usr/lib/libX11.so.6.3.0)
+    ==4166==    by 0x7425166: XPeekEvent (in /usr/lib/libX11.so.6.3.0)
+    ==4166==    by 0x49C3E3: process_key (x11_be.c:1065)
+    ==4166==    by 0x49EA5C: event_key_release (x11_be.c:2201)
+    ==4166==    by 0x49DD6E: x11_be_process_events (x11_be.c:1892)
+    ==4166==    by 0x4A38F4: x11_be_main_loop (x11_be.c:4353)
+    ==4166==    by 0x4A39E1: x11_be_thread_main (x11_be.c:4385)
+    ==4166==    by 0x87549C9: start_thread (pthread_create.c:300)
+    
+    Reported-by: Roger Cruz <roger.cruz@virtualcomputer.com>
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Reviewed-by: Jeremy Huddleston <jeremyhu@apple.com>
+    Reviewed-by: Daniel Stone <daniel@fooishbar.org>
+
+diff --git a/src/XExtInt.c b/src/XExtInt.c
+index d1451cc..134ccc6 100644
+--- a/src/XExtInt.c
++++ b/src/XExtInt.c
+@@ -1259,7 +1259,7 @@ copyRawEvent(XGenericEventCookie *cookie_in,
+     len = sizeof(XIRawEvent) + in->valuators.mask_len;
+     len += bits * sizeof(double) * 2;
+ 
+-    ptr = cookie_out->data = malloc(sizeof(XIRawEvent));
++    ptr = cookie_out->data = malloc(len);
+     if (!ptr)
+         return False;
+ 
