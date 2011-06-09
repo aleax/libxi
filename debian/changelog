@@ -1,11 +1,11 @@
-libxi (2:1.4.3-1) UNRELEASED; urgency=low
+libxi (2:1.4.3-1) unstable; urgency=low
 
   * New upstream release.
   * Add a comment to the series file so that it isn't eaten by
     dpkg-source.
   * Bump Standards-Version (no changes).
 
- -- Cyril Brulebois <kibi@debian.org>  Thu, 09 Jun 2011 11:42:14 +0200
+ -- Cyril Brulebois <kibi@debian.org>  Thu, 09 Jun 2011 12:08:59 +0200
 
 libxi (2:1.4.2-1) unstable; urgency=low
 
