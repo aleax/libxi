@@ -1,6 +1,8 @@
 libxi (2:1.4.3-1) UNRELEASED; urgency=low
 
   * New upstream release.
+  * Add a comment to the series file so that it isn't eaten by
+    dpkg-source.
 
  -- Cyril Brulebois <kibi@debian.org>  Thu, 09 Jun 2011 11:42:14 +0200
 
