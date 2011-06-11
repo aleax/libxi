@@ -1,6 +1,7 @@
 libxi (2:1.4.3-3) UNRELEASED; urgency=low
 
   * Don't ship debug symbols for the udeb in libxi6-dbg.
+  * Add build-{arch,indep} debian/rules targets.
 
  -- Julien Cristau <jcristau@debian.org>  Sun, 12 Jun 2011 00:19:18 +0200
 

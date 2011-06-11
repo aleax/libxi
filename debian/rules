@@ -47,7 +47,11 @@ build/config.status: configure
 	             CFLAGS="$(CFLAGS)" 
 
 
-build: build-stamp
+build: build-indep build-arch
+build-indep:
+build-arch: build-stamp
+.PHONY: build build-indep build-arch
+
 build-stamp: build/config.status
 	dh_testdir
 	cd build && $(MAKE)
@@ -105,4 +109,4 @@ binary-indep: build install
 # Nothing to do
 
 binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install
+.PHONY: clean binary-indep binary-arch binary install
