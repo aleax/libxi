@@ -1,9 +1,11 @@
-libxi (2:1.4.3-3ubuntu1) UNRELEASED; urgency=low
+libxi (2:1.4.3-3ubuntu1) oneiric; urgency=low
 
-  * Merge from Debian unstable.
-  * Update 1_xi2.1.patch.
+  * Merge from Debian unstable, remaining changes:
+    - Add xi 2.1 support
+  * Update 1_xi2.1.patch to apply.
+  * Drop 100_len_raw_events.patch, included upstream.
 
- -- Timo Aaltonen <tjaalton@ubuntu.com>  Wed, 25 May 2011 11:04:02 +0300
+ -- Timo Aaltonen <tjaalton@ubuntu.com>  Tue, 14 Jun 2011 14:28:17 +0300
 
 libxi (2:1.4.3-3) unstable; urgency=low
 
