@@ -1,9 +1,38 @@
-libxi (2:1.4.2-1ubuntu1) UNRELEASED; urgency=low
+libxi (2:1.4.3-3ubuntu1) UNRELEASED; urgency=low
 
   * Merge from Debian unstable.
   * Update 1_xi2.1.patch.
 
  -- Timo Aaltonen <tjaalton@ubuntu.com>  Wed, 25 May 2011 11:04:02 +0300
+
+libxi (2:1.4.3-3) unstable; urgency=low
+
+  * Team upload.
+  * Don't ship debug symbols for the udeb in libxi6-dbg.
+  * Add build-{arch,indep} debian/rules targets.
+
+ -- Julien Cristau <jcristau@debian.org>  Sun, 12 Jun 2011 00:20:23 +0200
+
+libxi (2:1.4.3-2) unstable; urgency=low
+
+  * Team upload.
+
+  [ Steve Langasek ]
+  * Build for multiarch.
+
+  [ Julien Cristau ]
+  * Remove David Nusinow from Uploaders.
+
+ -- Julien Cristau <jcristau@debian.org>  Sat, 11 Jun 2011 16:14:32 +0200
+
+libxi (2:1.4.3-1) unstable; urgency=low
+
+  * New upstream release.
+  * Add a comment to the series file so that it isn't eaten by
+    dpkg-source.
+  * Bump Standards-Version (no changes).
+
+ -- Cyril Brulebois <kibi@debian.org>  Thu, 09 Jun 2011 12:08:59 +0200
 
 libxi (2:1.4.2-1) unstable; urgency=low
 
