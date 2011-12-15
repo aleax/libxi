@@ -7,19 +7,20 @@ Build-Depends:
  debhelper (>= 8.1.3),
  x11proto-core-dev (>= 7.0.13),
  x11proto-xext-dev (>= 7.0.3),
- x11proto-input-dev (>= 1.9.99.902),
+ x11proto-input-dev (>= 2.0.99.1),
  libx11-dev (>= 2:1.3.3-2),
  libxext-dev (>= 2:1.1.1-3),
  xmlto,
  asciidoc (>= 8.4.5),
  pkg-config,
  quilt,
- xutils-dev (>= 1:7.5+4),
+ xutils-dev (>= 1:7.6+2),
  automake,
  libtool,
 # specs
  xmlto,
- xorg-sgml-doctools (>= 1:1.5),
+ xorg-sgml-doctools (>= 1:1.8),
+ xsltproc,
  w3m,
 Standards-Version: 3.9.2
 Vcs-Git: git://git.debian.org/git/pkg-xorg/lib/libxi

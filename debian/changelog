@@ -2,6 +2,9 @@ libxi (2:1.4.99.1-1) UNRELEASED; urgency=low
 
   * New upstream release candidate:
     - With multitouch support.
+  * Update build dependencies accordingly:
+    - Bump xutils-dev, x11proto-input-dev, xorg-sgml-doctools.
+    - Add xsltproc.
 
  -- Cyril Brulebois <kibi@debian.org>  Thu, 15 Dec 2011 14:44:42 +0100
 
