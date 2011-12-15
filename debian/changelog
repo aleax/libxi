@@ -6,6 +6,7 @@ libxi (2:1.4.99.1-1) UNRELEASED; urgency=low
     - Bump xutils-dev, x11proto-input-dev, xorg-sgml-doctools.
     - Add xsltproc.
   * Update libxi-dev.install: specs/ and docs/ have been merged.
+  * Don't install *.db yet.
 
  -- Cyril Brulebois <kibi@debian.org>  Thu, 15 Dec 2011 14:44:42 +0100
 
