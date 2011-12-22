@@ -98,7 +98,7 @@ binary-arch: build install
 	dh_strip -N$(PACKAGE)
 	dh_compress
 	dh_fixperms
-	dh_makeshlibs -V'libxi6 (>= 2:1.2.99.4)' --add-udeb=$(PACKAGE)-udeb -- -c4
+	dh_makeshlibs -V'libxi6 (>= 2:1.5.99.2)' --add-udeb=$(PACKAGE)-udeb -- -c4
 	dh_shlibdeps
 	dh_installdeb
 	dh_gencontrol

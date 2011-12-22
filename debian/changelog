@@ -5,6 +5,7 @@ libxi (2:1.5.99.2-1) UNRELEASED; urgency=low
   * Fix changelog entry for 2:1.4.99.1-1:
     - With XI 2.1 support, no multitouch yet.
   * Bump x11proto-input-dev and libx11-dev build-deps.
+  * Update libxi6.symbols with new symbols and bump shlibs.
 
  -- Cyril Brulebois <kibi@debian.org>  Thu, 22 Dec 2011 12:53:34 +0100
 
