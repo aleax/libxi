@@ -1,3 +1,134 @@
+commit ae0187c8708d2378373889827117911086581fdd
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Thu Dec 22 09:42:43 2011 +1000
+
+    libXi 1.5.99.2
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 47f3d887a7731f4ab68a69ed31dbe7acf6d13270
+Merge: 82a6312 e73e2fe
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Wed Dec 21 15:40:37 2011 +1000
+
+    Merge branch 'multitouch'
+    
+    Conflicts:
+    	configure.ac
+
+commit 82a631263ef4e6f46c1f33748089db8bf603b095
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Wed Dec 21 15:33:17 2011 +1000
+
+    libXi 1.5.0
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit e73e2fe95dab3e0048b24d16327adbe54326ff3f
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Wed Sep 14 22:33:57 2011 -0700
+
+    Implement support for XI 2.2
+    
+    Adds support for the new TouchClass for multitouch-capable servers/devices.
+    
+    New events:
+      XITouchOwnershipEvent
+    
+    New event types handled:
+      XITouchBegin, XITouchUpdate, XITouchEnd
+      XIRawTouchBegin, XIRawTouchUpdate, XIRawTouchEnd
+    
+    New functions:
+      XIGrabTouchBegin ... passive grabs on touches
+      XIUngrabTouchBegin
+      XIAllowTouchEvents ... Allow/reject touch event sequences
+    
+    New XIQueryDevice classes:
+      XITouchClassInfo
+    
+    Requires libX11 1.5 for GetReqSized
+    
+    Co-authored by: Chase Douglas <chase.douglas@canonical.com>
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 7888d14a499062a1c3b333f31f1330cecf1e97c1
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Tue Oct 25 13:30:47 2011 +1000
+
+    Bump to 1.5.99.1
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit fa6505f0a86b296e8f12f0fb8f472ef17b501fdb
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Mon Dec 19 09:36:34 2011 +1000
+
+    man: minor formatting fix in XIGrabButton
+
+commit 49408e39e4b084fe362e9ee197bfa0aa1c55384d
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Fri Nov 11 15:32:21 2011 +1000
+
+    Include config.h from source files
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Reviewed-by: Gaetan Nadon <memsize@videotron.ca>
+    Reviewed-by: Jeremy Huddleston <jeremyhu@apple.com>
+
+commit ba83a1e58592e41f207524f106ba26dd71fe4171
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Wed Oct 26 08:55:35 2011 +1000
+
+    Stop unnecessary calls to size_classes
+    
+    Xmalloc is a macro evaluating its argument twice.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Reviewed-by: Jeremy Huddleston <jeremyhu@apple.com>
+
+commit 6d6ae8fc8b9620bf864ac7dff8d818573eee3e4f
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Wed Oct 26 08:54:53 2011 +1000
+
+    Fix duplicate sizeof in copy_classes
+    
+    sizeof(bla * sizeof()) is'nt right.
+    
+    Plus add some () to the next_block call too to emphasise that *nclasses is
+    the multiplicator.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Reviewed-by: Jeremy Huddleston <jeremyhu@apple.com>
+
+commit 323730f7fa70190d2ea00e62c6964fee524ca430
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Thu Oct 27 10:27:49 2011 +1000
+
+    man: passive grabs return the number of failed modifier combinations
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 5189df57e18c79327848fb117a8ede59868c8fdb
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Fri Oct 21 08:49:31 2011 +1000
+
+    man: XIGrabButton returns error codes, not status codes
+    
+    Reword slightly that the returned value is the error code for this
+    particular grab.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 05aaf65b3b6b7dc7268137ce4ee516f08eefb62f
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Fri Oct 21 08:07:45 2011 +1000
+
+    man: fix #include for XIGrabButton
+    
+    Reported-by: Matthias Clasen <mclasen@redhat.com>
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
 commit c25debae73be50b9a77454ed4d72ffeaab726846
 Author: Peter Hutterer <peter.hutterer@who-t.net>
 Date:   Mon Oct 10 10:24:38 2011 +1000

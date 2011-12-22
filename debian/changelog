@@ -1,3 +1,10 @@
+libxi (2:1.5.99.2-0ubuntu1) UNRELEASED; urgency=low
+
+  * New upstream release candidate:
+    - Really with multitouch support.
+
+ -- Chase Douglas <chase.douglas@ubuntu.com>  Wed, 21 Dec 2011 16:30:21 -0800
+
 libxi (2:1.4.99.1-1) experimental; urgency=low
 
   * New upstream release candidate:
