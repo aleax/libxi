@@ -2,7 +2,5 @@ usr/lib/*/libXi.a
 usr/lib/*/libXi.so
 usr/lib/*/pkgconfig/xi.pc
 usr/include/X11/extensions/
-usr/share/doc/libXi/specs/*.html usr/share/doc/libxi-dev
-usr/share/doc/libXi/specs/*.txt  usr/share/doc/libxi-dev
-usr/share/doc/libXi/doc/*.html usr/share/doc/libxi-dev
-usr/share/doc/libXi/doc/*.txt  usr/share/doc/libxi-dev
+usr/share/doc/libXi/*.html usr/share/doc/libxi-dev
+usr/share/doc/libXi/*.txt  usr/share/doc/libxi-dev

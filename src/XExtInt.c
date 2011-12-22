@@ -98,7 +98,7 @@ extern int _XiGetDevicePresenceNotifyEvent(
     Display *		/* dpy */
 );
 
-int copy_classes(XIDeviceInfo *to, xXIAnyInfo* from, int nclasses);
+int copy_classes(XIDeviceInfo *to, xXIAnyInfo* from, int *nclasses);
 int size_classes(xXIAnyInfo* from, int nclasses);
 
 static XExtensionInfo *xinput_info;
@@ -149,6 +149,8 @@ wireToPropertyEvent(xXIPropertyEvent *in, XGenericEventCookie *cookie);
 
 static /* const */ XEvent emptyevent;
 
+typedef Status (*core_event_to_wire)(Display*, XEvent*, xEvent*);
+
 static /* const */ XExtensionHooks xinput_extension_hooks = {
     NULL,	/* create_gc */
     NULL,	/* copy_gc */
@@ -158,7 +160,7 @@ static /* const */ XExtensionHooks xinput_extension_hooks = {
     NULL,	/* free_font */
     XInputClose,	/* close_display */
     XInputWireToEvent,	/* wire_to_event */
-    _XiEventToWire,	/* event_to_wire */
+    (core_event_to_wire)_XiEventToWire, /* event_to_wire */
     NULL,	/* error */
     XInputError,	/* error_string */
 };
@@ -268,7 +270,8 @@ static XExtensionVersion versions[] = { {XI_Absent, 0, 0},
  XI_Add_DevicePresenceNotify_Minor},
 {XI_Present, XI_Add_DeviceProperties_Major,
  XI_Add_DeviceProperties_Minor},
-{XI_Present, XI_2_Major, XI_2_Minor}
+{XI_Present, 2, 0},
+{XI_Present, 2, 1}
 };
 
 /***********************************************************************
@@ -760,7 +763,6 @@ XInputWireToEvent(
                         return (DONT_ENQUEUE);
                     else {
                         *re = *save;
-                        stev = (XDeviceStateNotifyEvent *) re;
                         return (ENQUEUE_EVENT);
                     }
                 }
@@ -788,7 +790,6 @@ XInputWireToEvent(
                         return (DONT_ENQUEUE);
                     else {
                         *re = *save;
-                        kstev = (XDeviceStateNotifyEvent *) re;
                         return (ENQUEUE_EVENT);
                     }
                 }
@@ -816,7 +817,6 @@ XInputWireToEvent(
                         return (DONT_ENQUEUE);
                     else {
                         *re = *save;
-                        bstev = (XDeviceStateNotifyEvent *) re;
                         return (ENQUEUE_EVENT);
                     }
                 }
@@ -1039,6 +1039,9 @@ sizeDeviceClassType(int type, int num_elements)
         case XIValuatorClass:
             l = sizeof(XIValuatorClassInfo);
             break;
+        case XIScrollClass:
+            l = sizeof(XIScrollClassInfo);
+            break;
         default:
             printf("sizeDeviceClassType: unknown type %d\n", type);
             break;
@@ -1097,6 +1100,9 @@ copyDeviceChangedEvent(XGenericEventCookie *in_cookie,
                 break;
             case XIValuatorClass:
                 len += sizeDeviceClassType(XIValuatorClass, 0);
+                break;
+            case XIScrollClass:
+                len += sizeDeviceClassType(XIScrollClass, 0);
                 break;
             default:
                 printf("copyDeviceChangedEvent: unknown type %d\n",
@@ -1160,6 +1166,15 @@ copyDeviceChangedEvent(XGenericEventCookie *in_cookie,
                     vout = next_block(&ptr, sizeof(XIValuatorClass));
                     *vout = *vin;
                     out->classes[i] = (XIAnyClassInfo*)vout;
+                    break;
+                }
+            case XIScrollClass:
+                {
+                    XIScrollClassInfo *sin, *sout;
+                    sin = (XIScrollClassInfo*)any;
+                    sout = next_block(&ptr, sizeof(XIScrollClassInfo));
+                    *sout = *sin;
+                    out->classes[i] = (XIAnyClassInfo*)sout;
                     break;
                 }
         }
@@ -1433,6 +1448,9 @@ size_classes(xXIAnyInfo* from, int nclasses)
             case XIValuatorClass:
                 l = sizeDeviceClassType(XIValuatorClass, 0);
                 break;
+            case XIScrollClass:
+                l = sizeDeviceClassType(XIScrollClass, 0);
+                break;
         }
 
         len += l;
@@ -1449,30 +1467,29 @@ size_classes(xXIAnyInfo* from, int nclasses)
  *             |______________________^
  */
 _X_HIDDEN int
-copy_classes(XIDeviceInfo* to, xXIAnyInfo* from, int nclasses)
+copy_classes(XIDeviceInfo* to, xXIAnyInfo* from, int *nclasses)
 {
     XIAnyClassInfo *any_lib;
     xXIAnyInfo *any_wire;
     void *ptr_lib;
     char *ptr_wire;
     int i, len;
+    int cls_idx = 0;
 
     if (!to->classes)
         return -1;
 
     ptr_wire = (char*)from;
     ptr_lib = to->classes;
-    to->classes = next_block(&ptr_lib, nclasses * sizeof(XIAnyClassInfo*));
+    to->classes = next_block(&ptr_lib, *nclasses * sizeof(XIAnyClassInfo*));
+    memset(to->classes, 0, sizeof(*nclasses * sizeof(XIAnyClassInfo*)));
     len = 0; /* count wire length */
 
-    for (i = 0; i < nclasses; i++)
+    for (i = 0; i < *nclasses; i++)
     {
         any_lib = (XIAnyClassInfo*)ptr_lib;
         any_wire = (xXIAnyInfo*)ptr_wire;
 
-        to->classes[i] = any_lib;
-        any_lib->type = any_wire->type;
-        any_lib->sourceid = any_wire->sourceid;
         switch(any_wire->type)
         {
             case XIButtonClass:
@@ -1486,6 +1503,8 @@ copy_classes(XIDeviceInfo* to, xXIAnyInfo* from, int nclasses)
                     cls_lib = next_block(&ptr_lib, sizeof(XIButtonClassInfo));
                     cls_wire = (xXIButtonInfo*)any_wire;
 
+                    cls_lib->type = cls_wire->type;
+                    cls_lib->sourceid = cls_wire->sourceid;
                     cls_lib->num_buttons = cls_wire->num_buttons;
                     size = ((((cls_wire->num_buttons + 7)/8) + 3)/4);
                     cls_lib->state.mask_len = size * 4;
@@ -1500,6 +1519,7 @@ copy_classes(XIDeviceInfo* to, xXIAnyInfo* from, int nclasses)
                     for (j = 0; j < cls_lib->num_buttons; j++)
                         cls_lib->labels[j] = *atoms++;
 
+                    to->classes[cls_idx++] = any_lib;
                     break;
                 }
             case XIKeyClass:
@@ -1510,12 +1530,15 @@ copy_classes(XIDeviceInfo* to, xXIAnyInfo* from, int nclasses)
                     cls_lib = next_block(&ptr_lib, sizeof(XIKeyClassInfo));
                     cls_wire = (xXIKeyInfo*)any_wire;
 
+                    cls_lib->type = cls_wire->type;
+                    cls_lib->sourceid = cls_wire->sourceid;
                     cls_lib->num_keycodes = cls_wire->num_keycodes;
                     cls_lib->keycodes = next_block(&ptr_lib,
                             cls_lib->num_keycodes * sizeof(int));
                     memcpy(cls_lib->keycodes, &cls_wire[1],
                             cls_lib->num_keycodes);
 
+                    to->classes[cls_idx++] = any_lib;
                     break;
                 }
             case XIValuatorClass:
@@ -1526,6 +1549,8 @@ copy_classes(XIDeviceInfo* to, xXIAnyInfo* from, int nclasses)
                     cls_lib = next_block(&ptr_lib, sizeof(XIValuatorClassInfo));
                     cls_wire = (xXIValuatorInfo*)any_wire;
 
+                    cls_lib->type = cls_wire->type;
+                    cls_lib->sourceid = cls_wire->sourceid;
                     cls_lib->number = cls_wire->number;
                     cls_lib->label  = cls_wire->label;
                     cls_lib->resolution = cls_wire->resolution;
@@ -1535,12 +1560,35 @@ copy_classes(XIDeviceInfo* to, xXIAnyInfo* from, int nclasses)
                     /* FIXME: fractional parts */
                     cls_lib->mode       = cls_wire->mode;
 
+                    to->classes[cls_idx++] = any_lib;
+                }
+                break;
+            case XIScrollClass:
+                {
+                    XIScrollClassInfo *cls_lib;
+                    xXIScrollInfo *cls_wire;
+
+                    cls_lib = next_block(&ptr_lib, sizeof(XIScrollClassInfo));
+                    cls_wire = (xXIScrollInfo*)any_wire;
+
+                    cls_lib->type = cls_wire->type;
+                    cls_lib->sourceid = cls_wire->sourceid;
+                    cls_lib->number     = cls_wire->number;
+                    cls_lib->scroll_type= cls_wire->scroll_type;
+                    cls_lib->flags      = cls_wire->flags;
+                    cls_lib->increment  = cls_wire->increment.integral;
+                    cls_lib->increment += (unsigned int)cls_wire->increment.frac/(double)(1UL << 32);
+
+                    to->classes[cls_idx++] = any_lib;
                 }
                 break;
         }
         len += any_wire->length * 4;
         ptr_wire += any_wire->length * 4;
     }
+
+    /* we may have skipped unknown classes, reset nclasses */
+    *nclasses = cls_idx;
     return len;
 }
 
@@ -1551,6 +1599,7 @@ wireToDeviceChangedEvent(xXIDeviceChangedEvent *in, XGenericEventCookie *cookie)
     XIDeviceChangedEvent *out;
     XIDeviceInfo info;
     int len;
+    int nclasses = in->num_classes;
 
     len = size_classes((xXIAnyInfo*)&in[1], in->num_classes);
 
@@ -1565,13 +1614,13 @@ wireToDeviceChangedEvent(xXIDeviceChangedEvent *in, XGenericEventCookie *cookie)
     out->deviceid = in->deviceid;
     out->sourceid = in->sourceid;
     out->reason = in->reason;
-    out->num_classes = in->num_classes;
 
     out->classes = (XIAnyClassInfo**)&out[1];
 
     info.classes = out->classes;
 
-    copy_classes(&info, (xXIAnyInfo*)&in[1], in->num_classes);
+    copy_classes(&info, (xXIAnyInfo*)&in[1], &nclasses);
+    out->num_classes = nclasses;
 
     return 1;
 }
