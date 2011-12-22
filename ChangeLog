@@ -1,8 +1,62 @@
+commit ae0187c8708d2378373889827117911086581fdd
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Thu Dec 22 09:42:43 2011 +1000
+
+    libXi 1.5.99.2
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 47f3d887a7731f4ab68a69ed31dbe7acf6d13270
+Merge: 82a6312 e73e2fe
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Wed Dec 21 15:40:37 2011 +1000
+
+    Merge branch 'multitouch'
+    
+    Conflicts:
+    	configure.ac
+
 commit 82a631263ef4e6f46c1f33748089db8bf603b095
 Author: Peter Hutterer <peter.hutterer@who-t.net>
 Date:   Wed Dec 21 15:33:17 2011 +1000
 
     libXi 1.5.0
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit e73e2fe95dab3e0048b24d16327adbe54326ff3f
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Wed Sep 14 22:33:57 2011 -0700
+
+    Implement support for XI 2.2
+    
+    Adds support for the new TouchClass for multitouch-capable servers/devices.
+    
+    New events:
+      XITouchOwnershipEvent
+    
+    New event types handled:
+      XITouchBegin, XITouchUpdate, XITouchEnd
+      XIRawTouchBegin, XIRawTouchUpdate, XIRawTouchEnd
+    
+    New functions:
+      XIGrabTouchBegin ... passive grabs on touches
+      XIUngrabTouchBegin
+      XIAllowTouchEvents ... Allow/reject touch event sequences
+    
+    New XIQueryDevice classes:
+      XITouchClassInfo
+    
+    Requires libX11 1.5 for GetReqSized
+    
+    Co-authored by: Chase Douglas <chase.douglas@canonical.com>
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 7888d14a499062a1c3b333f31f1330cecf1e97c1
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Tue Oct 25 13:30:47 2011 +1000
+
+    Bump to 1.5.99.1
     
     Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
 
