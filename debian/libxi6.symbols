@@ -1,6 +1,6 @@
 libXi.so.6 libxi6 #MINVER#
  XAllowDeviceEvents@Base 0
- XIAllowTouchEvents@Base 2:1.4.1-1ubuntu1
+ XIAllowTouchEvents@Base 2:1.5.99.2
  XChangeDeviceControl@Base 0
  XChangeDeviceDontPropagateList@Base 0
  XChangeDeviceKeyMapping@Base 0
