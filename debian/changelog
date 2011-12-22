@@ -1,4 +1,4 @@
-libxi (2:1.5.99.2-0ubuntu1) UNRELEASED; urgency=low
+libxi (2:1.5.99.2-0ubuntu1) precise; urgency=low
 
   * New upstream release candidate:
     - Really with multitouch support.
@@ -6,7 +6,7 @@ libxi (2:1.5.99.2-0ubuntu1) UNRELEASED; urgency=low
   * Bump x11proto-input-dev dependencies
   * Bump XIAllowTouchEvents symbols minver due to added parameter
 
- -- Chase Douglas <chase.douglas@ubuntu.com>  Wed, 21 Dec 2011 19:22:11 -0800
+ -- Chase Douglas <chase.douglas@ubuntu.com>  Wed, 21 Dec 2011 19:25:46 -0800
 
 libxi (2:1.4.99.1-1) experimental; urgency=low
 
