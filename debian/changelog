@@ -1,4 +1,4 @@
-libxi (2:1.5.99.2-1) UNRELEASED; urgency=low
+libxi (2:1.5.99.2-1) experimental; urgency=low
 
   * New upstream release candidate:
     - With XI 2.2 support, needed for multitouch.
@@ -7,7 +7,7 @@ libxi (2:1.5.99.2-1) UNRELEASED; urgency=low
   * Bump x11proto-input-dev and libx11-dev build-deps.
   * Update libxi6.symbols with new symbols and bump shlibs.
 
- -- Cyril Brulebois <kibi@debian.org>  Thu, 22 Dec 2011 12:53:34 +0100
+ -- Cyril Brulebois <kibi@debian.org>  Thu, 22 Dec 2011 14:19:35 +0100
 
 libxi (2:1.5.0-1) experimental; urgency=low
 
