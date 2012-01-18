@@ -1,3 +1,10 @@
+libxi (2:1.5.99.2-0ubuntu3) precise; urgency=low
+
+  * Bump build depends on x11proto-input-dev to 2.1.99.5.  Our 2.1.99.4 package
+    is really 2.0.2, so 2.1.99.5 is the first version with MT support.
+
+ -- Christopher James Halse Rogers <raof@ubuntu.com>  Wed, 18 Jan 2012 11:44:39 +1100
+
 libxi (2:1.5.99.2-0ubuntu2) precise; urgency=low
 
   * Bump build depends on libx11-dev
