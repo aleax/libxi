@@ -1,3 +1,9 @@
+libxi (2:1.5.99.2-0ubuntu2) precise; urgency=low
+
+  * Bump build depends on libx11-dev
+
+ -- Chase Douglas <chase.douglas@ubuntu.com>  Fri, 13 Jan 2012 17:31:04 +0100
+
 libxi (2:1.5.99.2-0ubuntu1) precise; urgency=low
 
   * New upstream release candidate:
