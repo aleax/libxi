@@ -1,3 +1,55 @@
+commit 34964b05c16161de65709d60799b9ad97ce56296
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Fri Jan 27 15:35:44 2012 +1000
+
+    libXi 1.5.99.3
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit b355b7300235395717de06809ee6631ce55d3189
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Fri Jan 27 13:28:52 2012 +1000
+
+    Handle new XIAllowEvent request size
+    
+    inputproto 2.1.99.6 restored the previous request for ABI compatibility
+    reasons, and it introduced a new XI 2.2 specific define.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Reviewed-by: Keith Packard <keithp@keithp.com>
+
+commit 07ced7b48219e3bc0c98806f3d7106f86d1b2ca0
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Tue Jan 17 21:26:14 2012 +0100
+
+    Force class alignment to a multiple of sizeof(XID).
+    
+    Calculate length field to a multiples of sizeof(XID). XIDs are typedefs
+    to ulong and thus may be 8 bytes on some platforms. This can trigger a
+    SIGBUS if a class ends up not being 8-aligned (e.g. after XAxisInfo).
+    
+    Reported-by: Nicolai Stange <nicolai.stange@zmaw.de>
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Signed-off-by: Matthieu Herrb <matthieu.herrb@laas.fr>
+
+commit 15feb92b30e13e7439a3434bea9f454645b97444
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Thu Jan 5 13:55:41 2012 +1000
+
+    man: fix typo Mappiing → Mapping
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 8576ae6b9ee974829e2fb8a834087652a6e9e1a2
+Author: Cyril Brulebois <kibi@debian.org>
+Date:   Thu Dec 22 15:50:47 2011 +0100
+
+    configure.ac: Fix a typo in comments.
+    
+    Signed-off-by: Cyril Brulebois <kibi@debian.org>
+    Reviewed-by: Chase Douglas <chase.douglas@canonical.com>
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
 commit ae0187c8708d2378373889827117911086581fdd
 Author: Peter Hutterer <peter.hutterer@who-t.net>
 Date:   Thu Dec 22 09:42:43 2011 +1000
