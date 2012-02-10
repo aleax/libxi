@@ -77,7 +77,6 @@ libXi.so.6 libxi6 #MINVER#
  XUngrabDevice@Base 0
  XUngrabDeviceButton@Base 0
  XUngrabDeviceKey@Base 0
- XIUngrabTouchBegin@Base 2:1.4.1-1ubuntu1
  _XiGetDevicePresenceNotifyEvent@Base 2:1.1.2
  _xibadclass@Base 0
  _xibaddevice@Base 0
