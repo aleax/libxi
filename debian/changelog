@@ -1,3 +1,14 @@
+libxi (2:1.5.99.2-1) experimental; urgency=low
+
+  * New upstream release candidate:
+    - With XI 2.2 support, needed for multitouch.
+  * Fix changelog entry for 2:1.4.99.1-1:
+    - With XI 2.1 support, no multitouch yet.
+  * Bump x11proto-input-dev and libx11-dev build-deps.
+  * Update libxi6.symbols with new symbols and bump shlibs.
+
+ -- Cyril Brulebois <kibi@debian.org>  Thu, 22 Dec 2011 14:19:35 +0100
+
 libxi (2:1.5.99.2-0ubuntu3) precise; urgency=low
 
   * Bump build depends on x11proto-input-dev to 2.1.99.5.  Our 2.1.99.4 package
@@ -21,10 +32,16 @@ libxi (2:1.5.99.2-0ubuntu1) precise; urgency=low
 
  -- Chase Douglas <chase.douglas@ubuntu.com>  Wed, 21 Dec 2011 19:25:46 -0800
 
+libxi (2:1.5.0-1) experimental; urgency=low
+
+  * New upstream release.
+
+ -- Cyril Brulebois <kibi@debian.org>  Wed, 21 Dec 2011 10:12:07 +0100
+
 libxi (2:1.4.99.1-1) experimental; urgency=low
 
   * New upstream release candidate:
-    - With multitouch support.
+    - With XI 2.1 support.
   * Update build dependencies accordingly:
     - Bump xutils-dev, x11proto-input-dev, xorg-sgml-doctools.
     - Add xsltproc.
