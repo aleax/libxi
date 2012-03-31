@@ -2,11 +2,9 @@ libxi (2:1.6.0-1) UNRELEASED; urgency=low
 
   * New upstream release
   * Bump build deps on x11proto-input-dev
-  * Fix scroll valuator increment value on 32-bit machines
-    - Added 0001_scroll_increment_value.patch
   * Bump lintian standards version to 3.9.3
 
- -- Chase Douglas <chase.douglas@ubuntu.com>  Fri, 30 Mar 2012 17:51:18 -0700
+ -- Chase Douglas <chase.douglas@ubuntu.com>  Fri, 30 Mar 2012 17:54:20 -0700
 
 libxi (2:1.5.99.2-1) experimental; urgency=low
 
