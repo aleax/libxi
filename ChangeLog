@@ -1,3 +1,44 @@
+commit 70b730b0548ca9e408f14f2576b972beb32a0ad0
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Thu Mar 8 16:03:50 2012 +1000
+
+    libXi 1.6.0
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 1b9f0394c3d4d3833f8560ae8170a4d5842419ab
+Author: Chase Douglas <chase.douglas@canonical.com>
+Date:   Wed Mar 7 14:52:54 2012 -0800
+
+    Fix XIScrollClass increment value on 32-bit machines
+    
+    This fixes scroll class increment values on 32-bit machines. Performing
+    1UL << 32 shifts the bit off the end of a 32-bit unsigned long value. By
+    expanding to 1ULL, we have the full 64-bits of an unsigned long long
+    including on 32-bit machines.
+    
+    Before this change, xinput list --long would output scroll increment
+    values of -nan.
+    
+    Signed-off-by: Chase Douglas <chase.douglas@canonical.com>
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit c1a5a70b51f12dedf354102217c7cd4247ed3a4b
+Author: Michał Masłowski <mtjm@mtjm.eu>
+Date:   Tue Feb 21 20:54:40 2012 +0100
+
+    Fix bus error on MIPS N32 for bug #38331.
+    
+    XIValuatorClassInfo and XIScrollClassInfo might have an address
+    of 4 bytes modulo 8, while they contain doubles which need 8 byte
+    alignment.  This is fixed by adding extra padding after each structure
+    or array in sizeDeviceClassType and adding helper functions to
+    determine sizes and padding only in one place.
+    
+    Fixes: https://bugs.freedesktop.org/show_bug.cgi?id=38331
+    Signed-off-by: Michał Masłowski <mtjm@mtjm.eu>
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
 commit 34964b05c16161de65709d60799b9ad97ce56296
 Author: Peter Hutterer <peter.hutterer@who-t.net>
 Date:   Fri Jan 27 15:35:44 2012 +1000
