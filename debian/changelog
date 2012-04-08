@@ -1,3 +1,12 @@
+libxi (2:1.4.5-1.1) unstable; urgency=high
+
+  * Non-maintainer upload.
+  * Backport fixes from upstream:
+    - Fix bus error on MIPS N32 (Closes: #636920)
+    - Fix wrong button label and mask copy on OS X.
+
+ -- Sebastian Ramacher <s.ramacher@gmx.at>  Sat, 07 Apr 2012 16:55:42 +0200
+
 libxi (2:1.4.5-1) unstable; urgency=low
 
   * New upstream release.
