@@ -1,3 +1,10 @@
+libxi (2:1.6.0-0ubuntu2) UNRELEASED; urgency=low
+
+  * Report button state and labels correctly (LP: #980041)
+    - Add patch 0001_fix_button_mask_and_labels.patch from upstream
+
+ -- Chase Douglas <chase.douglas@ubuntu.com>  Thu, 12 Apr 2012 09:16:00 -0700
+
 libxi (2:1.6.0-0ubuntu1) precise; urgency=low
 
   * New upstream release
