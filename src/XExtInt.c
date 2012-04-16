@@ -145,7 +145,7 @@ wireToDeviceChangedEvent(xXIDeviceChangedEvent *in, XGenericEventCookie *cookie)
 static int
 wireToHierarchyChangedEvent(xXIHierarchyEvent *in, XGenericEventCookie *cookie);
 static int
-wireToRawEvent(xXIRawEvent *in, XGenericEventCookie *cookie);
+wireToRawEvent(XExtDisplayInfo *info, xXIRawEvent *in, XGenericEventCookie *cookie);
 static int
 wireToEnterLeave(xXIEnterEvent *in, XGenericEventCookie *cookie);
 static int
@@ -344,6 +344,43 @@ static int XInputCheckExtension(Display *dpy, XExtDisplayInfo *info)
     return 1;
 }
 
+/*****************************************************************
+ * Compare version numbers between info and the built-in version table.
+ * Returns
+ *   -1 if info's version is less than version_index's version,
+ *   0 if equal (or DontCheck),
+ *   1 if info's version is greater than version_index's version.
+ * Returns -2 on initialization errors which shouldn't happen if you call it
+ * correctly.
+ */
+_X_HIDDEN int
+_XiCheckVersion(XExtDisplayInfo *info,
+                int version_index)
+{
+    XExtensionVersion *ext;
+
+    if (versions[version_index].major_version == Dont_Check)
+        return 0;
+
+    if (!info->data)
+        return -2;
+
+    ext = ((XInputData *) info->data)->vers;
+    if (!ext)
+        return -2;
+
+    if (ext->major_version == versions[version_index].major_version &&
+        ext->minor_version == versions[version_index].minor_version)
+        return 0;
+
+    if (ext->major_version < versions[version_index].major_version ||
+        (ext->major_version == versions[version_index].major_version &&
+         ext->minor_version < versions[version_index].minor_version))
+        return -1;
+    else
+        return 1;
+}
+
 /***********************************************************************
  *
  * Check to see if the input extension is installed in the server.
@@ -357,8 +394,6 @@ _XiCheckExtInit(
     register int	 version_index,
     XExtDisplayInfo	*info)
 {
-    XExtensionVersion *ext;
-
     if (!XInputCheckExtension(dpy, info)) {
 	UnlockDisplay(dpy);
 	return (-1);
@@ -374,15 +409,11 @@ _XiCheckExtInit(
 	    _XiGetExtensionVersion(dpy, "XInputExtension", info);
     }
 
-    if (versions[version_index].major_version > Dont_Check) {
-	ext = ((XInputData *) info->data)->vers;
-	if ((ext->major_version < versions[version_index].major_version) ||
-	    ((ext->major_version == versions[version_index].major_version) &&
-	     (ext->minor_version < versions[version_index].minor_version))) {
-	    UnlockDisplay(dpy);
-	    return (-1);
-	}
+    if (_XiCheckVersion(info, version_index) < 0) {
+	UnlockDisplay(dpy);
+	return -1;
     }
+
     return (0);
 }
 
@@ -981,7 +1012,7 @@ XInputWireToCookie(
         case XI_RawTouchUpdate:
         case XI_RawTouchEnd:
             *cookie = *(XGenericEventCookie*)save;
-            if (!wireToRawEvent((xXIRawEvent*)event, cookie))
+            if (!wireToRawEvent(info, (xXIRawEvent*)event, cookie))
             {
                 printf("XInputWireToCookie: CONVERSION FAILURE!  evtype=%d\n",
                         ge->evtype);
@@ -1610,12 +1641,14 @@ copy_classes(XIDeviceInfo* to, xXIAnyInfo* from, int *nclasses)
                     int struct_size;
                     int state_size;
                     int labels_size;
+                    int wire_mask_size;
 
                     cls_wire = (xXIButtonInfo*)any_wire;
                     sizeXIButtonClassType(cls_wire->num_buttons,
                                           &struct_size, &state_size,
                                           &labels_size);
                     cls_lib = next_block(&ptr_lib, struct_size);
+                    wire_mask_size = ((cls_wire->num_buttons + 7)/8 + 3)/4 * 4;
 
                     cls_lib->type = cls_wire->type;
                     cls_lib->sourceid = cls_wire->sourceid;
@@ -1623,10 +1656,14 @@ copy_classes(XIDeviceInfo* to, xXIAnyInfo* from, int *nclasses)
                     cls_lib->state.mask_len = state_size;
                     cls_lib->state.mask = next_block(&ptr_lib, state_size);
                     memcpy(cls_lib->state.mask, &cls_wire[1],
-                           cls_lib->state.mask_len);
+                           wire_mask_size);
+                    if (state_size != wire_mask_size)
+                        memset(&cls_lib->state.mask[wire_mask_size], 0,
+                               state_size - wire_mask_size);
 
                     cls_lib->labels = next_block(&ptr_lib, labels_size);
-                    atoms =(uint32_t*)((char*)&cls_wire[1] + cls_lib->state.mask_len);
+
+                    atoms =(uint32_t*)((char*)&cls_wire[1] + wire_mask_size);
                     for (j = 0; j < cls_lib->num_buttons; j++)
                         cls_lib->labels[j] = *atoms++;
 
@@ -1795,13 +1832,12 @@ wireToHierarchyChangedEvent(xXIHierarchyEvent *in, XGenericEventCookie *cookie)
 }
 
 static int
-wireToRawEvent(xXIRawEvent *in, XGenericEventCookie *cookie)
+wireToRawEvent(XExtDisplayInfo *info, xXIRawEvent *in, XGenericEventCookie *cookie)
 {
     int len, i, bits;
     FP3232 *values;
     XIRawEvent *out;
     void *ptr;
-
 
     len = sizeof(XIRawEvent) + in->valuators_len * 4;
     bits = count_bits((unsigned char*)&in[1], in->valuators_len * 4);
@@ -1820,8 +1856,13 @@ wireToRawEvent(xXIRawEvent *in, XGenericEventCookie *cookie)
     out->time           = in->time;
     out->detail         = in->detail;
     out->deviceid       = in->deviceid;
-    out->sourceid       = 0; /* https://bugs.freedesktop.org/show_bug.cgi?id=34240 */
     out->flags          = in->flags;
+
+    /* https://bugs.freedesktop.org/show_bug.cgi?id=34240 */
+    if (_XiCheckVersion(info, XInput_2_2) >= 0)
+        out->sourceid       = in->sourceid;
+    else
+        out->sourceid       = 0;
 
     out->valuators.mask_len = in->valuators_len * 4;
     out->valuators.mask = next_block(&ptr, out->valuators.mask_len);
