@@ -1,3 +1,49 @@
+commit 2ac185d2fd2b884f4f59a7f7f61f414d139859aa
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Mon Mar 26 09:07:34 2012 +1000
+
+    Set the RawEvent sourceid (#34240)
+    
+    XI 2.2 and later include the sourceid in raw events.
+    
+    X.Org Bug 34240 <http://bugs.freedesktop.org/show_bug.cgi?id=34240>
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Reviewed-by: Chase Douglas <chase.douglas@canonical.com>
+
+commit dfc101e4c6cdac4ff9a51732b2754287fbdc8582
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Mon Mar 26 09:05:24 2012 +1000
+
+    Move version comparison into a helper function.
+    
+    No functional changes, this simply introduces a version helper function that
+    returns -1, 0 or 1 depending on the version comparison result. To be used
+    internally only.
+    
+    Needed for fix to #34240
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Reviewed-by: Chase Douglas <chase.douglas@canonical.com>
+
+commit 8436c920953f288aea2d6d5f370f8eaaaef82d97
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Thu Mar 15 11:51:41 2012 +1000
+
+    Fix wrong button label and mask copy on OS X
+    
+    Regression introduced in c1a5a70b51f12dedf354102217c7cd4247ed3a4b.
+    
+    If double-padding is applied, the length of the mask on the wire may be
+    smaller than libXi's mask_len. When copying, only the wire length must be
+    copied, with the remainder set to 0.
+    When advancing to the button labels, the wire length matters, not libXi's
+    internal length.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Reviewed-by: Jeremy Huddleston <jeremyhu@apple.com>
+    Tested-by: Jeremy Huddleston <jeremyhu@apple.com>
+
 commit 70b730b0548ca9e408f14f2576b972beb32a0ad0
 Author: Peter Hutterer <peter.hutterer@who-t.net>
 Date:   Thu Mar 8 16:03:50 2012 +1000
