@@ -60,18 +60,15 @@ build-stamp: build/config.status
 
 clean: xsfclean
 	dh_testdir
-	dh_testroot
 	rm -f build-stamp
-
 	rm -f config.cache config.log config.status
 	rm -f */config.cache */config.log */config.status
 	rm -f conftest* */conftest*
 	rm -rf autom4te.cache */autom4te.cache
 	rm -rf build
-	rm -f $$(find -name Makefile.in)
+	find -name Makefile.in -delete
 	rm -f INSTALL compile config.guess config.sub configure config.h.in
 	rm -f depcomp install-sh ltmain.sh missing aclocal.m4 mkinstalldirs
-
 	dh_clean
 
 install: build
