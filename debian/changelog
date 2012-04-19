@@ -1,4 +1,4 @@
-libxi (2:1.6.0-1) UNRELEASED; urgency=low
+libxi (2:1.6.0-1) unstable; urgency=low
 
   [ Chase Douglas ]
   * New upstream release
@@ -12,8 +12,9 @@ libxi (2:1.6.0-1) UNRELEASED; urgency=low
       patch for bug#636920)
     - Move version comparison into a helper function
     - Set the RawEvent sourceid (#34240)
+  * Upload to unstable.
 
- -- Chase Douglas <chase.douglas@ubuntu.com>  Fri, 30 Mar 2012 17:54:20 -0700
+ -- Julien Cristau <jcristau@debian.org>  Mon, 16 Apr 2012 19:32:32 +0200
 
 libxi (2:1.5.99.2-1) experimental; urgency=low
 
