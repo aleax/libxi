@@ -1,8 +1,12 @@
-libxi (2:1.6.0-2) UNRELEASED; urgency=low
+libxi (2:1.6.1-1) UNRELEASED; urgency=low
 
+  [ Julien Cristau ]
   * Don't require (fake)root for debian/rules clean.
 
- -- Julien Cristau <jcristau@debian.org>  Thu, 19 Apr 2012 23:38:32 +0200
+  [ Cyril Brulebois ]
+  * New upstream release.
+
+ -- Cyril Brulebois <kibi@debian.org>  Sun, 20 May 2012 16:59:50 +0200
 
 libxi (2:1.6.0-1) unstable; urgency=low
 

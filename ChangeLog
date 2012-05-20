@@ -1,3 +1,36 @@
+commit ae163b6202d844a46541928d00049b29cbdf930f
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Thu May 3 16:01:35 2012 +1000
+
+    libXi 1.6.1
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit fd5e000308925f703ecd15c288127ab33a456425
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Mon Apr 23 13:32:59 2012 +1000
+
+    man: update XIQueryVersion for current server behaviour
+    
+    XIQueryVersion(v1);
+    XIQueryVersion(v2);
+    
+    is now ok as long as v1 <= v2.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Reviewed-by: Jeremy Huddleston <jeremyhu@apple.com>
+
+commit f8f44f42eb543ecd944a84facba6c09bf48e7711
+Author: Chase Douglas <chase.douglas@canonical.com>
+Date:   Fri Apr 20 15:30:30 2012 -0700
+
+    Destroy extension record after last display is removed
+    
+    The extension record is currently leaked and never freed.
+    
+    Signed-off-by: Chase Douglas <chase.douglas@canonical.com>
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
 commit 2ac185d2fd2b884f4f59a7f7f61f414d139859aa
 Author: Peter Hutterer <peter.hutterer@who-t.net>
 Date:   Mon Mar 26 09:07:34 2012 +1000
