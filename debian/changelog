@@ -1,3 +1,10 @@
+libxi (2:1.6.99.1-0ubuntu1) raring; urgency=low
+
+  * Sync from unreleased debian git.
+    - new upstream release
+
+ -- Timo Aaltonen <tjaalton@ubuntu.com>  Wed, 06 Feb 2013 23:56:21 +0200
+
 libxi (2:1.6.99.1-1) UNRELEASED; urgency=low
 
   * New upstream release.
