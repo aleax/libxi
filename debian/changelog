@@ -5,6 +5,7 @@ libxi (2:1.6.99.1-1) UNRELEASED; urgency=low
   * add-missing-xi_rawtouch.diff: Upstream commit to add XI_RawTouch in
     XInputCopyCookie.
   * control: Bump x11proto-input-dev build-dep to 2.2.99.1.
+  * libxi6.symbols: Added new symbols.
 
  -- Timo Aaltonen <tjaalton@ubuntu.com>  Wed, 06 Feb 2013 23:43:08 +0200
 
