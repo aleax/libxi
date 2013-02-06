@@ -1,3 +1,40 @@
+libxi (2:1.6.99.1-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+  * control: Bump policy to 3.9.4, no changes.
+  * add-missing-xi_rawtouch.diff: Upstream commit to add XI_RawTouch in
+    XInputCopyCookie.
+
+ -- Timo Aaltonen <tjaalton@ubuntu.com>  Wed, 06 Feb 2013 23:43:08 +0200
+
+libxi (2:1.6.1-1) unstable; urgency=low
+
+  [ Julien Cristau ]
+  * Don't require (fake)root for debian/rules clean.
+
+  [ Cyril Brulebois ]
+  * New upstream release.
+
+ -- Cyril Brulebois <kibi@debian.org>  Sun, 20 May 2012 17:00:03 +0200
+
+libxi (2:1.6.0-1) unstable; urgency=low
+
+  [ Chase Douglas ]
+  * New upstream release
+    - Fix bus error on MIPS N32 (closes: #636920)
+  * Bump build deps on x11proto-input-dev
+  * Bump lintian standards version to 3.9.3
+
+  [ Julien Cristau ]
+  * Pull some more changes from upstream master:
+    - Fix wrong button label and mask copy on OS X (fixes regression in the
+      patch for bug#636920)
+    - Move version comparison into a helper function
+    - Set the RawEvent sourceid (#34240)
+  * Upload to unstable.
+
+ -- Julien Cristau <jcristau@debian.org>  Mon, 16 Apr 2012 19:32:32 +0200
+
 libxi (2:1.6.0-0ubuntu2) precise; urgency=low
 
   * Report button state and labels correctly (LP: #980041)

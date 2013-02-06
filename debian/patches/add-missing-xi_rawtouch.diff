@@ -1,0 +1,29 @@
+commit 236be512c81b76dad711bec481e2139584006c4c
+Author: Benjamin Tissoires <benjamin.tissoires@gmail.com>
+Date:   Mon Jan 14 18:32:05 2013 +0100
+
+    Add missing XI_RawTouch* in XInputCopyCookie
+    
+    Looks like XI_RawTouch* events are missing in the big switch in this function.
+    When running XIT tests for multitouch devices, several following errors appears:
+    XInputCopyCookie: Failed to copy evtype 22
+    XInputCopyCookie: Failed to copy evtype 23
+    XInputCopyCookie: Failed to copy evtype 24
+    
+    Signed-off-by: Benjamin Tissoires <benjamin.tissoires@gmail.com>
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+diff --git a/src/XExtInt.c b/src/XExtInt.c
+index 57d071d..507573b 100644
+--- a/src/XExtInt.c
++++ b/src/XExtInt.c
+@@ -1484,6 +1484,9 @@ XInputCopyCookie(Display *dpy, XGenericEventCookie *in, XGenericEventCookie *out
+         case XI_RawButtonPress:
+         case XI_RawButtonRelease:
+         case XI_RawMotion:
++        case XI_RawTouchBegin:
++        case XI_RawTouchUpdate:
++        case XI_RawTouchEnd:
+             ret = copyRawEvent(in, out);
+             break;
+         case XI_BarrierHit:

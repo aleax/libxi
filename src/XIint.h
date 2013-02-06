@@ -22,10 +22,12 @@
 #endif
 #define XInput_2_1			8
 #define XInput_2_2			9
+#define XInput_2_3			10
 
 extern XExtDisplayInfo *XInput_find_display(Display *);
 
 extern int _XiCheckExtInit(Display *, int, XExtDisplayInfo *);
+extern int _XiCheckVersion(XExtDisplayInfo *info, int version_index);
 
 extern XExtensionVersion *_XiGetExtensionVersion(Display *, _Xconst char *, XExtDisplayInfo *);
 extern XExtensionVersion* _XiGetExtensionVersionRequest(Display *dpy, _Xconst char *name, int xi_opcode);

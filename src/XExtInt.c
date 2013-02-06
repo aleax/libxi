@@ -73,40 +73,11 @@ SOFTWARE.
 #define DONT_ENQUEUE	False
 #define FP1616toDBL(x) ((x) * 1.0 / (1 << 16))
 
-extern void _xibaddevice(
-    Display *		/* dpy */,
-    int *		/* error */
-);
-
-extern void _xibadclass(
-    Display *		/* dpy */,
-    int *		/* error */
-);
-
-extern void _xibadevent(
-    Display *		/* dpy */,
-    int *		/* error */
-);
-
-extern void _xibadmode(
-    Display *		/* dpy */,
-    int *		/* error */
-);
-
-extern void _xidevicebusy(
-    Display *		/* dpy */,
-    int *		/* error */
-);
-
-extern int _XiGetDevicePresenceNotifyEvent(
-    Display *		/* dpy */
-);
-
 int copy_classes(XIDeviceInfo *to, xXIAnyInfo* from, int *nclasses);
 int size_classes(xXIAnyInfo* from, int nclasses);
 
 static XExtensionInfo *xinput_info;
-static /* const */ char *xinput_extension_name = INAME;
+static const char *xinput_extension_name = INAME;
 
 static int XInputClose(
     Display *		/* dpy */,
@@ -145,7 +116,7 @@ wireToDeviceChangedEvent(xXIDeviceChangedEvent *in, XGenericEventCookie *cookie)
 static int
 wireToHierarchyChangedEvent(xXIHierarchyEvent *in, XGenericEventCookie *cookie);
 static int
-wireToRawEvent(xXIRawEvent *in, XGenericEventCookie *cookie);
+wireToRawEvent(XExtDisplayInfo *info, xXIRawEvent *in, XGenericEventCookie *cookie);
 static int
 wireToEnterLeave(xXIEnterEvent *in, XGenericEventCookie *cookie);
 static int
@@ -153,6 +124,9 @@ wireToPropertyEvent(xXIPropertyEvent *in, XGenericEventCookie *cookie);
 static int
 wireToTouchOwnershipEvent(xXITouchOwnershipEvent *in,
                           XGenericEventCookie *cookie);
+static int
+wireToBarrierEvent(xXIBarrierEvent *in,
+                   XGenericEventCookie *cookie);
 
 static /* const */ XEvent emptyevent;
 
@@ -172,7 +146,7 @@ static /* const */ XExtensionHooks xinput_extension_hooks = {
     XInputError,	/* error_string */
 };
 
-static char *XInputErrorList[] = {
+static const char *XInputErrorList[] = {
     "BadDevice, invalid or uninitialized input device",	/* BadDevice */
     "BadEvent, invalid event type",	/* BadEvent */
     "BadMode, invalid mode parameter",	/* BadMode  */
@@ -344,6 +318,43 @@ static int XInputCheckExtension(Display *dpy, XExtDisplayInfo *info)
     return 1;
 }
 
+/*****************************************************************
+ * Compare version numbers between info and the built-in version table.
+ * Returns
+ *   -1 if info's version is less than version_index's version,
+ *   0 if equal (or DontCheck),
+ *   1 if info's version is greater than version_index's version.
+ * Returns -2 on initialization errors which shouldn't happen if you call it
+ * correctly.
+ */
+_X_HIDDEN int
+_XiCheckVersion(XExtDisplayInfo *info,
+                int version_index)
+{
+    XExtensionVersion *ext;
+
+    if (versions[version_index].major_version == Dont_Check)
+        return 0;
+
+    if (!info->data)
+        return -2;
+
+    ext = ((XInputData *) info->data)->vers;
+    if (!ext)
+        return -2;
+
+    if (ext->major_version == versions[version_index].major_version &&
+        ext->minor_version == versions[version_index].minor_version)
+        return 0;
+
+    if (ext->major_version < versions[version_index].major_version ||
+        (ext->major_version == versions[version_index].major_version &&
+         ext->minor_version < versions[version_index].minor_version))
+        return -1;
+    else
+        return 1;
+}
+
 /***********************************************************************
  *
  * Check to see if the input extension is installed in the server.
@@ -357,8 +368,6 @@ _XiCheckExtInit(
     register int	 version_index,
     XExtDisplayInfo	*info)
 {
-    XExtensionVersion *ext;
-
     if (!XInputCheckExtension(dpy, info)) {
 	UnlockDisplay(dpy);
 	return (-1);
@@ -374,15 +383,11 @@ _XiCheckExtInit(
 	    _XiGetExtensionVersion(dpy, "XInputExtension", info);
     }
 
-    if (versions[version_index].major_version > Dont_Check) {
-	ext = ((XInputData *) info->data)->vers;
-	if ((ext->major_version < versions[version_index].major_version) ||
-	    ((ext->major_version == versions[version_index].major_version) &&
-	     (ext->minor_version < versions[version_index].minor_version))) {
-	    UnlockDisplay(dpy);
-	    return (-1);
-	}
+    if (_XiCheckVersion(info, version_index) < 0) {
+	UnlockDisplay(dpy);
+	return -1;
     }
+
     return (0);
 }
 
@@ -403,7 +408,16 @@ XInputClose(
 	XFree((char *)((XInputData *) info->data)->vers);
 	XFree((char *)info->data);
     }
-    return XextRemoveDisplay(xinput_info, dpy);
+
+    if (!XextRemoveDisplay(xinput_info, dpy))
+        return 0;
+
+    if (xinput_info->ndisplays == 0) {
+        XextDestroyExtension(xinput_info);
+        xinput_info = NULL;
+    }
+
+    return 1;
 }
 
 static int
@@ -456,7 +470,6 @@ XInputWireToEvent(
     xEvent	*event)
 {
     unsigned int type, reltype;
-    unsigned int i, j;
     XExtDisplayInfo *info = XInput_find_display(dpy);
     XEvent *save = (XEvent *) info->data;
 
@@ -581,6 +594,7 @@ XInputWireToEvent(
                 {
                     deviceValuator *xev = (deviceValuator *) event;
                     int save_type = save->type - info->codes->first_event;
+                    int i;
 
                     if (save_type == XI_DeviceKeyPress || save_type == XI_DeviceKeyRelease) {
                         XDeviceKeyEvent *kev = (XDeviceKeyEvent *) save;
@@ -676,6 +690,7 @@ XInputWireToEvent(
                                 pev->axis_data[0] = xev->valuator0;
                         }
                     } else if (save_type == XI_DeviceStateNotify) {
+                        int j;
                         XDeviceStateNotifyEvent *sev = (XDeviceStateNotifyEvent *) save;
                         XInputClass *any = (XInputClass *) & sev->data[0];
                         XValuatorStatus *v;
@@ -720,6 +735,7 @@ XInputWireToEvent(
                 break;
             case XI_DeviceStateNotify:
                 {
+                    int j;
                     XDeviceStateNotifyEvent *stev = (XDeviceStateNotifyEvent *) save;
                     deviceStateNotify *sev = (deviceStateNotify *) event;
                     char *data;
@@ -981,7 +997,7 @@ XInputWireToCookie(
         case XI_RawTouchUpdate:
         case XI_RawTouchEnd:
             *cookie = *(XGenericEventCookie*)save;
-            if (!wireToRawEvent((xXIRawEvent*)event, cookie))
+            if (!wireToRawEvent(info, (xXIRawEvent*)event, cookie))
             {
                 printf("XInputWireToCookie: CONVERSION FAILURE!  evtype=%d\n",
                         ge->evtype);
@@ -1003,6 +1019,16 @@ XInputWireToCookie(
         case XI_PropertyEvent:
             *cookie = *(XGenericEventCookie*)save;
             if (!wireToPropertyEvent((xXIPropertyEvent*)event, cookie))
+            {
+                printf("XInputWireToCookie: CONVERSION FAILURE!  evtype=%d\n",
+                        ge->evtype);
+                break;
+            }
+            return ENQUEUE_EVENT;
+        case XI_BarrierHit:
+        case XI_BarrierLeave:
+            *cookie = *(XGenericEventCookie*)save;
+            if (!wireToBarrierEvent((xXIBarrierEvent*)event, cookie))
             {
                 printf("XInputWireToCookie: CONVERSION FAILURE!  evtype=%d\n",
                         ge->evtype);
@@ -1390,7 +1416,21 @@ copyRawEvent(XGenericEventCookie *cookie_in,
     return True;
 }
 
+static Bool
+copyBarrierEvent(XGenericEventCookie *in_cookie,
+                 XGenericEventCookie *out_cookie)
+{
+    XIBarrierEvent *in, *out;
 
+    in = in_cookie->data;
+
+    out = out_cookie->data = calloc(1, sizeof(XIBarrierEvent));
+    if (!out)
+        return False;
+    *out = *in;
+
+    return True;
+}
 
 static Bool
 XInputCopyCookie(Display *dpy, XGenericEventCookie *in, XGenericEventCookie *out)
@@ -1445,6 +1485,10 @@ XInputCopyCookie(Display *dpy, XGenericEventCookie *in, XGenericEventCookie *out
         case XI_RawButtonRelease:
         case XI_RawMotion:
             ret = copyRawEvent(in, out);
+            break;
+        case XI_BarrierHit:
+        case XI_BarrierLeave:
+            ret = copyBarrierEvent(in, out);
             break;
         default:
             printf("XInputCopyCookie: unknown evtype %d\n", in->evtype);
@@ -1610,12 +1654,14 @@ copy_classes(XIDeviceInfo* to, xXIAnyInfo* from, int *nclasses)
                     int struct_size;
                     int state_size;
                     int labels_size;
+                    int wire_mask_size;
 
                     cls_wire = (xXIButtonInfo*)any_wire;
                     sizeXIButtonClassType(cls_wire->num_buttons,
                                           &struct_size, &state_size,
                                           &labels_size);
                     cls_lib = next_block(&ptr_lib, struct_size);
+                    wire_mask_size = ((cls_wire->num_buttons + 7)/8 + 3)/4 * 4;
 
                     cls_lib->type = cls_wire->type;
                     cls_lib->sourceid = cls_wire->sourceid;
@@ -1623,10 +1669,14 @@ copy_classes(XIDeviceInfo* to, xXIAnyInfo* from, int *nclasses)
                     cls_lib->state.mask_len = state_size;
                     cls_lib->state.mask = next_block(&ptr_lib, state_size);
                     memcpy(cls_lib->state.mask, &cls_wire[1],
-                           cls_lib->state.mask_len);
+                           wire_mask_size);
+                    if (state_size != wire_mask_size)
+                        memset(&cls_lib->state.mask[wire_mask_size], 0,
+                               state_size - wire_mask_size);
 
                     cls_lib->labels = next_block(&ptr_lib, labels_size);
-                    atoms =(uint32_t*)((char*)&cls_wire[1] + cls_lib->state.mask_len);
+
+                    atoms =(uint32_t*)((char*)&cls_wire[1] + wire_mask_size);
                     for (j = 0; j < cls_lib->num_buttons; j++)
                         cls_lib->labels[j] = *atoms++;
 
@@ -1795,13 +1845,12 @@ wireToHierarchyChangedEvent(xXIHierarchyEvent *in, XGenericEventCookie *cookie)
 }
 
 static int
-wireToRawEvent(xXIRawEvent *in, XGenericEventCookie *cookie)
+wireToRawEvent(XExtDisplayInfo *info, xXIRawEvent *in, XGenericEventCookie *cookie)
 {
     int len, i, bits;
     FP3232 *values;
     XIRawEvent *out;
     void *ptr;
-
 
     len = sizeof(XIRawEvent) + in->valuators_len * 4;
     bits = count_bits((unsigned char*)&in[1], in->valuators_len * 4);
@@ -1820,8 +1869,13 @@ wireToRawEvent(xXIRawEvent *in, XGenericEventCookie *cookie)
     out->time           = in->time;
     out->detail         = in->detail;
     out->deviceid       = in->deviceid;
-    out->sourceid       = 0; /* https://bugs.freedesktop.org/show_bug.cgi?id=34240 */
     out->flags          = in->flags;
+
+    /* https://bugs.freedesktop.org/show_bug.cgi?id=34240 */
+    if (_XiCheckVersion(info, XInput_2_2) >= 0)
+        out->sourceid       = in->sourceid;
+    else
+        out->sourceid       = 0;
 
     out->valuators.mask_len = in->valuators_len * 4;
     out->valuators.mask = next_block(&ptr, out->valuators.mask_len);
@@ -1932,6 +1986,37 @@ wireToTouchOwnershipEvent(xXITouchOwnershipEvent *in,
     out->event          = in->event;
     out->child          = in->child;
     out->flags          = in->flags;
+
+    return 1;
+}
+
+#define FP3232_TO_DOUBLE(x) ((double) (x).integral + (x).frac / (1ULL << 32))
+
+static int
+wireToBarrierEvent(xXIBarrierEvent *in, XGenericEventCookie *cookie)
+{
+    XIBarrierEvent *out = malloc(sizeof(XIBarrierEvent));
+
+    cookie->data = out;
+
+    out->display    = cookie->display;
+    out->type       = in->type;
+    out->extension  = in->extension;
+    out->evtype     = in->evtype;
+    out->send_event = ((in->type & 0x80) != 0);
+    out->time       = in->time;
+    out->deviceid   = in->deviceid;
+    out->sourceid   = in->sourceid;
+    out->event      = in->event;
+    out->root       = in->root;
+    out->root_x     = FP1616toDBL(in->root_x);
+    out->root_y     = FP1616toDBL(in->root_y);
+    out->dx         = FP3232_TO_DOUBLE (in->dx);
+    out->dy         = FP3232_TO_DOUBLE (in->dy);
+    out->dtime      = in->dtime;
+    out->flags      = in->flags;
+    out->barrier    = in->barrier;
+    out->eventid    = in->eventid;
 
     return 1;
 }

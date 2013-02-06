@@ -23,7 +23,7 @@ Build-Depends:
  xorg-sgml-doctools (>= 1:1.8),
  xsltproc,
  w3m,
-Standards-Version: 3.9.3
+Standards-Version: 3.9.4
 Vcs-Git: git://git.debian.org/git/pkg-xorg/lib/libxi
 Vcs-Browser: http://git.debian.org/?p=pkg-xorg/lib/libxi.git
 
