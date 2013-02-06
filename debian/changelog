@@ -2,6 +2,8 @@ libxi (2:1.6.99.1-1) UNRELEASED; urgency=low
 
   * New upstream release.
   * control: Bump policy to 3.9.4, no changes.
+  * add-missing-xi_rawtouch.diff: Upstream commit to add XI_RawTouch in
+    XInputCopyCookie.
 
  -- Timo Aaltonen <tjaalton@ubuntu.com>  Wed, 06 Feb 2013 23:43:08 +0200
 
