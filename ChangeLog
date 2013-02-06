@@ -1,3 +1,149 @@
+commit db3b9ba3404f6d128e7826aa489a34fd206b20ea
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Wed Dec 26 15:29:43 2012 +1000
+
+    libXi 1.6.99.1
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit af9f26510d87eee71f1cd688d7dcfbf173c13943
+Merge: 31c6cf9 9e8a55d
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Mon Dec 17 14:34:53 2012 +1000
+
+    Merge branch 'barriers'
+
+commit 9e8a55dfcb3dc2b42cd7e08e8e6e65ea1dd54251
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Fri Dec 7 15:47:41 2012 +1000
+
+    man: add man-page for XIBarrierReleasePointer
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 60d7386a1b98cc7760d55d6df1f90e6259d122fa
+Author: Jasper St. Pierre <jstpierre@mecheye.net>
+Date:   Thu Nov 1 17:00:19 2012 -0400
+
+    Add support for pointer barrier events
+    
+    Signed-off-by: Jasper St. Pierre <jstpierre@mecheye.net>
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit f694bd3fcf38213ae787a3ebe4e8b2df8b2dcdc7
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Fri Dec 7 14:39:50 2012 +1000
+
+    Bump to 1.6.99
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 31c6cf9f6fbcc7e90e3d6b7927664cbe54e27edf
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Thu Dec 6 10:38:16 2012 +1000
+
+    Fix const compiler warnings
+    
+    XExtInt.c:80:38: warning: initialization discards 'const' qualifier from
+    pointer target type [enabled by default]
+    XExtInt.c:150:5: warning: initialization discards 'const' qualifier from
+    pointer target type [enabled by default]
+    XExtInt.c:151:5: warning: initialization discards 'const' qualifier from
+    pointer target type [enabled by default]
+    XExtInt.c:152:5: warning: initialization discards 'const' qualifier from
+    pointer target type [enabled by default]
+    XExtInt.c:153:5: warning: initialization discards 'const' qualifier from
+    pointer target type [enabled by default]
+    XExtInt.c:154:5: warning: initialization discards 'const' qualifier from
+    pointer target type [enabled by default]
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Reviewed-by: Dan Nicholson <dbn.lists@gmail.com>
+
+commit b4e07e7acc84f68ed2d37557d64d5655cc262ed5
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Thu Dec 6 10:27:35 2012 +1000
+
+    Fix compiler warnings
+    
+    XIQueryVersion.c: In function '_xiQueryVersion':
+    XIQueryVersion.c:63:26: warning: declaration of 'info' shadows a parameter
+    [-Wshadow]
+    XIQueryVersion.c:53:73: warning: shadowed declaration is here [-Wshadow]
+    
+    XExtInt.c: In function 'XInputWireToEvent':
+    XExtInt.c:823:25: warning: declaration of 'i' shadows a previous local
+    [-Wshadow]
+    XExtInt.c:502:18: warning: shadowed declaration is here [-Wshadow]
+    XExtInt.c:850:25: warning: declaration of 'i' shadows a previous local
+    [-Wshadow]
+    XExtInt.c:502:18: warning: shadowed declaration is here [-Wshadow]
+    
+    In file included from XExtInt.c:64:0:
+    ../include/X11/extensions/XInput.h:166:17: note: previous declaration of
+    '_xidevicebusy' was here
+    XExtInt.c:101:12: warning: redundant redeclaration of
+    '_XiGetDevicePresenceNotifyEvent' [-Wredundant-decls]
+    
+    XExtInt.c:76:13: warning: redundant redeclaration of '_xibaddevice'
+    [-Wredundant-decls]
+    In file included from XExtInt.c:64:0:
+    ../include/X11/extensions/XInput.h:162:17: note: previous declaration of
+    '_xibaddevice' was here
+    XExtInt.c:81:13: warning: redundant redeclaration of '_xibadclass'
+    [-Wredundant-decls]
+    In file included from XExtInt.c:64:0:
+    ../include/X11/extensions/XInput.h:163:17: note: previous declaration of
+    '_xibadclass' was here
+    XExtInt.c:86:13: warning: redundant redeclaration of '_xibadevent'
+    [-Wredundant-decls]
+    In file included from XExtInt.c:64:0:
+    ../include/X11/extensions/XInput.h:164:17: note: previous declaration of
+    '_xibadevent' was here
+    XExtInt.c:91:13: warning: redundant redeclaration of '_xibadmode'
+    [-Wredundant-decls]
+    In file included from XExtInt.c:64:0:
+    ../include/X11/extensions/XInput.h:165:17: note: previous declaration of
+    '_xibadmode' was here
+    XExtInt.c:96:13: warning: redundant redeclaration of '_xidevicebusy'
+    [-Wredundant-decls]
+    In file included from XExtInt.c:64:0:
+    ../include/X11/extensions/XInput.h:166:17: note: previous declaration of
+    '_xidevicebusy' was here
+    
+    XListDev.c: In function 'ParseClassInfo':
+    XListDev.c:116:33: warning: declaration of 'k' shadows a previous local
+    [-Wshadow]
+    XListDev.c:109:12: warning: shadowed declaration is here [-Wshadow]
+    
+    XGetFCtl.c: In function 'XGetFeedbackControl':
+    XGetFCtl.c:184:26: warning: declaration of 'i' shadows a previous local
+    [-Wshadow]
+    XGetFCtl.c:72:17: warning: shadowed declaration is here [-Wshadow]
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Reviewed-by: Dan Nicholson <dbn.lists@gmail.com>
+
+commit 845550471fcd95d77e8d738ab8798d8e6e568b4a
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Wed Nov 7 08:51:23 2012 +1000
+
+    man: add generation of missing man pages for XIGrabTouchBegin
+    
+    The man page itself already contained the description, but it was missing
+    from NAME so the shadow man pages were not generated.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Reviewed-by: Chase Douglas <chase.douglas@ubuntu.com>
+
+commit 8c0eb1b6b4017b1e886981dc32cea90f2d4b9b64
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Thu Oct 11 13:33:45 2012 +1000
+
+    man: fix formatting issues in XGetDeviceControl(3)
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
 commit ae163b6202d844a46541928d00049b29cbdf930f
 Author: Peter Hutterer <peter.hutterer@who-t.net>
 Date:   Thu May 3 16:01:35 2012 +1000
