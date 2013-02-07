@@ -1,6 +1,7 @@
 libxi (2:1.6.99.1-0ubuntu3) raring; urgency=low
 
   * re-enable pointer barrier support.
+  * libxi6.symbols: drop duplicate entries.
 
  -- Timo Aaltonen <tjaalton@ubuntu.com>  Thu, 07 Feb 2013 18:58:48 +0200
 
