@@ -1,3 +1,16 @@
+libxi (2:1.6.99.1-0ubuntu3) raring; urgency=low
+
+  * re-enable pointer barrier support.
+
+ -- Timo Aaltonen <tjaalton@ubuntu.com>  Thu, 07 Feb 2013 18:58:48 +0200
+
+libxi (2:1.6.99.1-0ubuntu2) raring; urgency=low
+
+  * revert support for the new pointer barrier events for now, until
+    the rest of the stack is ready.
+
+ -- Timo Aaltonen <tjaalton@ubuntu.com>  Thu, 07 Feb 2013 18:55:05 +0200
+
 libxi (2:1.6.99.1-0ubuntu1) raring; urgency=low
 
   * Sync from unreleased debian git.
