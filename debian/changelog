@@ -1,9 +1,17 @@
-libxi (2:1.6.99.1-0ubuntu3) raring; urgency=low
+libxi (2:1.6.99.1-0ubuntu3.1) raring; urgency=low
 
   * re-enable pointer barrier support.
   * libxi6.symbols: drop duplicate entries.
 
  -- Timo Aaltonen <tjaalton@ubuntu.com>  Thu, 07 Feb 2013 18:58:48 +0200
+
+libxi (2:1.6.99.1-0ubuntu3) raring; urgency=low
+
+  * revert-xi2.3.diff: Change .pc file to set version back to 1.6.1, to avoid
+    tricking module checks of reverse dependencies into thinking that the
+    installed libxi supports pointer barrier events. Fixes mutter FTBFS.
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Wed, 20 Feb 2013 09:58:26 +0100
 
 libxi (2:1.6.99.1-0ubuntu2) raring; urgency=low
 
