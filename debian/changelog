@@ -1,3 +1,10 @@
+libxi (2:1.6.99.1-0ubuntu3.1~bpo70+1) wheezy-backports; urgency=low
+
+  * Rebuild for wheezy-backports.
+  * Upload to wheezy-graphics-next
+
+ -- Alexey Bondarchuk <alexey.bondarchuk@aleax.me>  Sun, 28 Apr 2013 16:35:21 +0300
+
 libxi (2:1.6.99.1-0ubuntu3.1) raring; urgency=low
 
   * re-enable pointer barrier support.
